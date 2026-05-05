@@ -117,14 +117,22 @@ Curated launcher of community gems.
 
 ## 🛠️ Compatibility
 
-| Executor              | Status |
-| --------------------- | :----: |
-| ScriptWare            |   ✅   |
-| Synapse X             |   ✅   |
-| Krnl                  |   ✅   |
-| Most modern executors |   ⚡   |
+All major **sUNC**-compliant executors are supported. Tested against the current update wave:
 
-> 💡 If your executor supports `HttpGetAsync` + `loadstring`, you're 99% good.
+| Executor      | Version    | Tier         | Status        |
+| ------------- | ---------- | ------------ | :-----------: |
+| **Volt**      | 1.2.15.3   | $5.99 / wk   | ✅ Updated     |
+| **Potassium** | 2.1.4      | $22.99 life  | ✅ Updated     |
+| **Wave**      | NEW-1.2.5  | $5.99 / wk   | ✅ Updated     |
+| **Seliware**  | 2.4.7      | $3.99 / wk   | ✅ Updated     |
+| **Synapse Z** | 1.0.2.0    | $3.99 / wk   | ⚠️ Not Updated |
+| **Madium**    | 1.4.2      | Free         | ✅ Updated     |
+| **Velocity**  | 0.9.4      | Free         | ✅ Updated     |
+| **SirHurt**   | V5.428     | $2.80 / wk   | ✅ Updated     |
+
+> 💡 **Rule of thumb:** if your executor advertises **sUNC** support and exposes `HttpGetAsync` + `loadstring`, Zaridium will run.
+
+> ⚠️ **Synapse Z** is currently behind on the latest Roblox update — wait for their next patch before using it with Zaridium.
 
 <br/>
 
