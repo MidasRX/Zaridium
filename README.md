@@ -1,99 +1,202 @@
-<h1 align="center">:whale2: Orca</h1>
-<div align="center">A free and open-source Roblox script hub</div>
-<br>
 <div align="center">
-	<a href="https://github.com/richie0866/orca/actions"><img src="https://github.com/richie0866/orca/actions/workflows/eslint.yaml/badge.svg" alt="ESLint Status" /></a>
-	<a href="https://github.com/richie0866/orca/releases/latest"><img src="https://img.shields.io/github/v/release/richie0866/orca?include_prereleases" alt="Latest Release" /></a>
+
+# 🐋 Zaridium
+
+### *A modern, free & open-source Roblox script hub — forged from [Orca](https://github.com/richie0866/orca).*
+
+<br/>
+
+[![Stars](https://img.shields.io/github/stars/MidasRX/Zaridium?style=for-the-badge&color=6cc3ff&labelColor=08080d&logo=github)](https://github.com/MidasRX/Zaridium/stargazers)
+[![Issues](https://img.shields.io/github/issues/MidasRX/Zaridium?style=for-the-badge&color=e664b4&labelColor=08080d&logo=github)](https://github.com/MidasRX/Zaridium/issues)
+[![License](https://img.shields.io/github/license/MidasRX/Zaridium?style=for-the-badge&color=ffd86b&labelColor=08080d)](./LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/MidasRX/Zaridium?style=for-the-badge&color=8be9fd&labelColor=08080d&logo=git&logoColor=white)](https://github.com/MidasRX/Zaridium/commits/main)
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-roblox--ts-3178c6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=08080d)](https://roblox-ts.com)
+[![Roact](https://img.shields.io/badge/UI-Roact-ff4757?style=for-the-badge&logo=react&logoColor=white&labelColor=08080d)](https://roblox.github.io/roact/)
+[![Rojo](https://img.shields.io/badge/Build-Rojo-d35400?style=for-the-badge&labelColor=08080d)](https://rojo.space)
+
+<br/>
+
+```
+╔═════════════════════════════════════════════════════════════╗
+║   press  K  →  open · close · feel the flow                 ║
+╚═════════════════════════════════════════════════════════════╝
+```
+
 </div>
-<div>&nbsp;</div>
 
-## :whale2: Introduction
+<br/>
 
-**Orca** is a **general-purpose** Roblox script hub designed to make convenient tasks **easy** and **satisfying**.
+## 🌌 What is Zaridium?
 
-Use many different **action cards** on the [**Home**](https://github.com/richie0866/orca#house-home) and [**Apps**](https://github.com/richie0866/orca#iphone-apps) page, or check out what we have featured on the [**Scripts**](https://github.com/richie0866/orca#newspaper-scripts) page.
+**Zaridium** is a slick, fast, fluid **Roblox script hub** built on top of the legendary **[Orca](https://github.com/richie0866/orca)** UI engine. It hands you a tidy panel of **action cards** for everything you'd want during a session — from movement tweaks to player utilities to a curated launcher for community scripts.
 
-Press `K` to open or close Orca. For the best experience, a 1080p monitor or above is recommended!
+> 🎯 **Mission** — keep convenience tasks *one tap away*, look good doing it, and never get in the way.
 
-&nbsp;
+<br/>
 
-## :rocket: Quick start
+## 🚀 Quick Start
 
-When run with auto-execution, Orca will start minimized by default.
+Paste one of these into your executor. When auto-execute is on, Zaridium boots minimized so it won't blast your screen on join.
 
-### :pushpin: Latest release
-
-Runs the latest release build of Orca.
+### 📦 Latest stable
 
 ```lua
 loadstring(
-  game:HttpGetAsync("https://raw.githubusercontent.com/richie0866/orca/master/public/latest.lua")
+  game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/latest.lua")
 )()
 ```
 
-### :construction: Nightly snapshot
+### 🧪 Nightly snapshot
 
-Runs a snapshot of new updates we have not published yet. You will get new features earlier, but they may be unstable.
+> ⚠️ Bleeding-edge. New stuff lands here first; expect occasional rough edges.
 
 ```lua
 loadstring(
-  game:HttpGetAsync("https://raw.githubusercontent.com/richie0866/orca/master/public/snapshot.lua")
+  game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/snapshot.lua")
 )()
 ```
 
-&nbsp;
+<br/>
 
-## :books: Navigation
+## 🧭 Navigation
 
-### :house: Home
+<table>
+<tr>
+<td valign="top" width="33%">
 
-The **Home** page has a handful of intuitive information and action cards.
+### 🏠 Home
+Quick-access info & character tweaks.
 
-- :blush: **Profile** - You, and some actions that modify your character.
+- 😊 **Profile**
+  - 🎚️ Sliders — flight, walk speed, jump height
+  - 🔘 Buttons — refresh, ghost, godmode, freecam
+- 🖥️ **Server** — rejoin / hop / cancel
+- 🎮 **Friend Activity** — see what your homies are playing
 
-  - :radio_button: **Sliders** - Flight, walk speed, and jump height
-  - :radio_button: **Buttons** - Refresh, ghost, godmode, or freecam
+</td>
+<td valign="top" width="33%">
 
-- :desktop_computer: **Server** - Your server, and options to rejoin or server hop. Tap again to cancel.
+### 📱 Apps
+Hub for general-purpose tools.
 
-- :video_game: **Friend Activity** - A list of games your friends are playing.
+- 🤗 **Players**
+  - 🚀 Goto — teleport to them
+  - 👻 Hide — local-only, persistent
+  - ☠️ Kill — handle-tool void bind
+  - 👁️ Spectate — third-person follow
 
-### :iphone: Apps
+</td>
+<td valign="top" width="33%">
 
-The **Apps** page acts as a hub for general and miscellaneous features.
+### 📰 Scripts
+Curated launcher of community gems.
 
-- :hugs: **Players** - A selection of players and some actions you can perform on them.
+- 📚 [Solaris](https://solarishub.dev)
+- 📚 [V.G Hub](https://github.com/1201for)
+- 📚 [EvoV2](https://projectevo.xyz)
+- 🛡️ [CMD-X](https://github.com/CMD-X)
+- 🛡️ [Infinite Yield](https://github.com/EdgeIY)
+- 🔍 [Dex Explorer](https://github.com/LorekeeperZinnia)
+- 🔍 [Unnamed ESP](https://github.com/ic3w0lf22)
 
-  - :radio_button: **Goto** - Moves your character to theirs. Tap again to cancel.
-  - :radio_button: **Hide** - Hides their character locally until disabled. Persists between players.
-  - :radio_button: **Kill** - Uses a tool with a handle to "bind" to their character and teleport to the void.
-  - :radio_button: **Spectate** - Toggles a third-person view of their character. Disables when they respawn or the subject changes.
+</td>
+</tr>
+</table>
 
-### :newspaper: Scripts
+### ⚙️ Options
 
-The **Scripts** page is a small collection of community-favorites you should try.
+|         |                              |
+| :-----: | ---------------------------- |
+|   ✅   | Set theme                     |
+|   ⬜   | Toggle acrylic effect         |
+|   ⬜   | Keybinds                      |
+|   ⬜   | Save settings                 |
 
-- :books: **Solaris** - https://solarishub.dev
-- :books: **V.G Hub** - https://github.com/1201for
-- :books: **EvoV2** - https://projectevo.xyz
-- :shield: **CMD-X** - https://github.com/CMD-X
-- :shield: **Infinite Yield** - https://github.com/EdgeIY
-- :mag_right: **Dex Explorer** - https://github.com/LorekeeperZinnia
-- :mag_right: **Unnamed ESP** - https://github.com/ic3w0lf22
+<br/>
 
-### :gear: Options
+## 🛠️ Compatibility
 
-The **Options** page lets you configure theming and UI performance.
+| Executor              | Status |
+| --------------------- | :----: |
+| ScriptWare            |   ✅   |
+| Synapse X             |   ✅   |
+| Krnl                  |   ✅   |
+| Most modern executors |   ⚡   |
 
- - [x] Set theme
- - [ ] Toggle acrylic effect
- - [ ] Keybinds
- - [ ] Save settings
+> 💡 If your executor supports `HttpGetAsync` + `loadstring`, you're 99% good.
 
-&nbsp;
+<br/>
 
-## :sparkling_heart: Support
+## 📁 Project Layout
 
-- :white_check_mark: ScriptWare
-- :white_check_mark: Synapse X
-- :white_check_mark: Krnl
+```
+Zaridium/
+├── README.md              ← you are here
+├── LICENSE
+└── roblox-script/         ← the actual roblox-ts project
+    ├── src/               ← TypeScript source (App, views, components, store…)
+    ├── public/            ← bundled loaders (latest.lua, snapshot.lua)
+    ├── ci/                ← bundle + minify scripts
+    ├── default.project.json
+    ├── place.project.json
+    └── package.json
+```
+
+<br/>
+
+## 💻 Build it yourself
+
+> Requires **Node 16+**, **[Foreman](https://github.com/Roblox/foreman)** (or Aftman), and an executor for testing.
+
+```bash
+git clone https://github.com/MidasRX/Zaridium.git
+cd Zaridium/roblox-script
+
+# install toolchain (rojo, remodel, selene, etc.)
+foreman install
+
+# install deps
+npm install
+
+# compile + bundle into a single loader
+npm run bundle
+```
+
+| Script             | What it does                                  |
+| ------------------ | --------------------------------------------- |
+| `npm run watch`    | live recompile on save                        |
+| `npm run serve`    | Rojo serve for Studio sync                    |
+| `npm run build`    | build `Orca.rbxm` model                       |
+| `npm run bundle`   | compile + bundle to `public/dev.lua`          |
+| `npm run bundle:min` | bundle minified                             |
+
+<br/>
+
+## 🤝 Credits
+
+- 🐋 **[richie0866](https://github.com/richie0866)** — original creator of **Orca**, the UI engine and architecture this fork stands on. All respect.
+- 💜 The **roblox-ts**, **Roact**, **Rodux** and **Rojo** teams.
+- 🌟 Everyone who tests, reports bugs, or yells at me in DMs.
+
+<br/>
+
+## 📜 License
+
+Released under the **MIT License** — see [LICENSE](./LICENSE). Do whatever you want, just keep the credit line.
+
+<br/>
+
+<div align="center">
+
+### 💌 Hit me up
+
+<a href="https://github.com/MidasRX"><img src="https://img.shields.io/badge/GitHub-MidasRX-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=08080d" /></a>
+<a href="https://discord.com/users/maximepolice"><img src="https://img.shields.io/badge/Discord-maximepolice-5865F2?style=for-the-badge&logo=discord&logoColor=white&labelColor=08080d" /></a>
+<a href="https://t.me/NagiOnTop"><img src="https://img.shields.io/badge/Telegram-NagiOnTop-26A5E4?style=for-the-badge&logo=telegram&logoColor=white&labelColor=08080d" /></a>
+
+<br/><br/>
+
+*Built with 🩵 by [@MidasRX](https://github.com/MidasRX) · forked with respect from [Orca](https://github.com/richie0866/orca)*
+
+</div>
