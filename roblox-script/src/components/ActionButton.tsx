@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useState } from "@rbxts/roact-hooked";
+import { withHooks, useState } from "@rbxts/roact-hooked";
 import BrightButton from "components/BrightButton";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
@@ -87,4 +87,4 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 	);
 }
 
-export default hooked(ActionButton);
+export default withHooks(ActionButton);

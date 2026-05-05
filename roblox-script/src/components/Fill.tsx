@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { GradientTheme } from "themes/theme.interface";
 import { BindingOrValue, mapBinding } from "utils/binding-util";
 import { hex } from "utils/color3";
@@ -36,4 +36,4 @@ function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, 
 	);
 }
 
-export default hooked(Fill);
+export default withHooks(Fill);

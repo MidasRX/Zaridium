@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import ParallaxImage from "components/ParallaxImage";
@@ -56,7 +56,7 @@ function Title() {
 	);
 }
 
-export default hooked(Title);
+export default withHooks(Title);
 
 // Title card info labels
 interface LabelProps {
@@ -91,4 +91,4 @@ function LabelComponent(props: LabelProps) {
 	);
 }
 
-const Label = hooked(LabelComponent);
+const Label = withHooks(LabelComponent);

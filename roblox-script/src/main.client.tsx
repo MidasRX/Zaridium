@@ -1,6 +1,6 @@
 import Make from "@rbxts/make";
 import Roact from "@rbxts/roact";
-import { Provider } from "@rbxts/roact-rodux-hooked";
+import { StoreProvider as Provider } from "@rbxts/roact-rodux-hooked";
 import { Players } from "@rbxts/services";
 import { IS_DEV } from "constants";
 import { setStore } from "jobs";

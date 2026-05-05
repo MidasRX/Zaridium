@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { BindingOrValue, mapBinding } from "utils/binding-util";
 import { scale } from "utils/udim2";
 
@@ -52,4 +52,4 @@ function Canvas({
 	);
 }
 
-export default hooked(Canvas);
+export default withHooks(Canvas);

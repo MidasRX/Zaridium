@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { Players } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -33,4 +33,4 @@ function Avatar() {
 	);
 }
 
-export default hooked(Avatar);
+export default withHooks(Avatar);

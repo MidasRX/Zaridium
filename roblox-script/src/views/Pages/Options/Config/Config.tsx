@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useTheme } from "hooks/use-theme";
@@ -52,4 +52,4 @@ function Config() {
 	);
 }
 
-export default hooked(Config);
+export default withHooks(Config);

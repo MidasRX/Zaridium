@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -71,4 +71,4 @@ function BrightButton({
 	);
 }
 
-export default hooked(BrightButton);
+export default withHooks(BrightButton);

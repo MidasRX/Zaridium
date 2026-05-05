@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useMemo } from "@rbxts/roact-hooked";
+import { withHooks, useMemo } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import { ScaleContext } from "context/scale-context";
 import { useAppSelector } from "hooks/common/rodux-hooks";
@@ -84,4 +84,4 @@ function Dashboard() {
 	);
 }
 
-export default hooked(Dashboard);
+export default withHooks(Dashboard);

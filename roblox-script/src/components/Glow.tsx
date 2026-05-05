@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useBinding } from "@rbxts/roact-hooked";
+import { withHooks, useBinding } from "@rbxts/roact-hooked";
 import { useScale } from "hooks/use-scale";
 import { GradientTheme } from "themes/theme.interface";
 import { asBinding, BindingOrValue } from "utils/binding-util";
@@ -109,4 +109,4 @@ function Glow({
 	);
 }
 
-export default hooked(Glow);
+export default withHooks(Glow);

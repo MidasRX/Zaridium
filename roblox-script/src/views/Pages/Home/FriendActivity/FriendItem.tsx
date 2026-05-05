@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useState } from "@rbxts/roact-hooked";
+import { withHooks, useState } from "@rbxts/roact-hooked";
 import { Players, TeleportService } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -96,4 +96,4 @@ function FriendItem({ friend, index }: Props) {
 	);
 }
 
-export default hooked(FriendItem);
+export default withHooks(FriendItem);

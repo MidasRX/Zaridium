@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import { useScale } from "hooks/use-scale";
 import { hex } from "utils/color3";
@@ -99,4 +99,4 @@ function HeaderCenter(props: { header: string; scaleFactor: Roact.Binding<number
 	);
 }
 
-export default hooked(Content);
+export default withHooks(Content);

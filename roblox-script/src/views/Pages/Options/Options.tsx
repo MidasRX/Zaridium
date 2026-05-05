@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { pure } from "@rbxts/roact-hooked";
+import { withHooksPure } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import { useScale } from "hooks/use-scale";
 import { scale } from "utils/udim2";
@@ -20,4 +20,4 @@ function Options() {
 	);
 }
 
-export default pure(Options);
+export default withHooksPure(Options);

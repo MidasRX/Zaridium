@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { Players } from "@rbxts/services";
 import Canvas from "components/Canvas";
 import { useAppSelector } from "hooks/common/rodux-hooks";
@@ -41,4 +41,4 @@ function Username() {
 	);
 }
 
-export default hooked(Username);
+export default withHooks(Username);

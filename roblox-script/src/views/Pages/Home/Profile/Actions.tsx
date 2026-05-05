@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import ActionButton from "components/ActionButton";
 import Canvas from "components/Canvas";
 import { useTheme } from "hooks/use-theme";
@@ -43,4 +43,4 @@ function Actions() {
 	);
 }
 
-export default hooked(Actions);
+export default withHooks(Actions);

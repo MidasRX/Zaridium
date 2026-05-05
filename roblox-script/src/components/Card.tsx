@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 
 import Acrylic from "components/Acrylic";
 import Border from "components/Border";
@@ -65,4 +65,4 @@ function Card({ index, page, theme, size, position, [Roact.Children]: children }
 	);
 }
 
-export default hooked(Card);
+export default withHooks(Card);

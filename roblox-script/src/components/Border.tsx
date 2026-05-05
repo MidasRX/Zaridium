@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { asBinding, BindingOrValue, mapBinding } from "utils/binding-util";
 import { hex } from "utils/color3";
 import { px } from "utils/udim2";
@@ -30,4 +30,4 @@ function Border({ size = 1, radius = 0, color = hex("#ffffff"), transparency = 0
 	);
 }
 
-export default hooked(Border);
+export default withHooks(Border);

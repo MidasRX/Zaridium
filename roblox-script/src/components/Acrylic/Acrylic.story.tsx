@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { Provider } from "@rbxts/roact-rodux-hooked";
+import { StoreProvider as Provider } from "@rbxts/roact-rodux-hooked";
 import Acrylic from "components/Acrylic/Acrylic";
 import { DashboardPage } from "store/models/dashboard.model";
 import { configureStore } from "store/store";

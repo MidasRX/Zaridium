@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useState } from "@rbxts/roact-hooked";
+import { withHooks, useState } from "@rbxts/roact-hooked";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useAppDispatch, useAppStore } from "hooks/common/rodux-hooks";
@@ -107,4 +107,4 @@ function Shortcuts() {
 	);
 }
 
-export default hooked(Shortcuts);
+export default withHooks(Shortcuts);

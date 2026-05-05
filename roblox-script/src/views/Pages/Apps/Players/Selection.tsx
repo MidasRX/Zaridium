@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useEffect, useMemo, useState } from "@rbxts/roact-hooked";
+import { withHooks, useEffect, useMemo, useState } from "@rbxts/roact-hooked";
 import { Players, TextService } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -97,7 +97,7 @@ function Selection() {
 	);
 }
 
-export default hooked(Selection);
+export default withHooks(Selection);
 
 interface PlayerEntryProps {
 	name: string;
@@ -228,4 +228,4 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 	);
 }
 
-const PlayerEntry = hooked(PlayerEntryComponent);
+const PlayerEntry = withHooks(PlayerEntryComponent);

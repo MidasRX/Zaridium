@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useEffect } from "@rbxts/roact-hooked";
+import { withHooks, useEffect } from "@rbxts/roact-hooked";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -145,4 +145,4 @@ function ScriptCard({
 	);
 }
 
-export default hooked(ScriptCard);
+export default withHooks(ScriptCard);

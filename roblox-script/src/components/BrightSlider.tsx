@@ -1,6 +1,6 @@
 import { Spring } from "@rbxts/flipper";
 import Roact from "@rbxts/roact";
-import { hooked, useCallback, useEffect, useState } from "@rbxts/roact-hooked";
+import { withHooks, useCallback, useEffect, useState } from "@rbxts/roact-hooked";
 import { UserInputService } from "@rbxts/services";
 import { getBinding, SpringOptions, useMotor } from "hooks/common/flipper-hooks";
 import { px, scale } from "utils/udim2";
@@ -94,7 +94,7 @@ function BrightSlider({
 	);
 }
 
-export default hooked(BrightSlider);
+export default withHooks(BrightSlider);
 
 function DragComponent({
 	onChange,
@@ -152,4 +152,4 @@ function DragComponent({
 	);
 }
 
-const Drag = hooked(DragComponent);
+const Drag = withHooks(DragComponent);

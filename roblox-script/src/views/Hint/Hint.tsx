@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useEffect, useState } from "@rbxts/roact-hooked";
+import { withHooks, useEffect, useState } from "@rbxts/roact-hooked";
 import { useAppSelector } from "hooks/common/rodux-hooks";
 import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
@@ -29,7 +29,7 @@ function Hint() {
 			TextYAlignment="Bottom"
 			TextColor3={hex("#FFFFFF")}
 			TextTransparency={useSpring(isHintVisible ? 0.4 : 1, {})}
-			Font="GothamSemibold"
+			Font="GothamMedium"
 			TextSize={18}
 			BackgroundTransparency={1}
 			Position={useSpring(isHintVisible ? scale(1, 1) : new UDim2(1, 0, 1, 48), {})}
@@ -39,4 +39,4 @@ function Hint() {
 	);
 }
 
-export default hooked(Hint);
+export default withHooks(Hint);

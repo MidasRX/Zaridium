@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useCurrentPage } from "hooks/use-current-page";
 import { DashboardPage } from "store/models/dashboard.model";
@@ -21,4 +21,4 @@ function Pages() {
 	);
 }
 
-export default hooked(Pages);
+export default withHooks(Pages);

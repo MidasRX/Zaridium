@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useState } from "@rbxts/roact-hooked";
+import { withHooks, useState } from "@rbxts/roact-hooked";
 import BrightButton from "components/BrightButton";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
@@ -70,4 +70,4 @@ function ServerAction({ action, hint, icon, size, position }: Props) {
 	);
 }
 
-export default hooked(ServerAction);
+export default withHooks(ServerAction);

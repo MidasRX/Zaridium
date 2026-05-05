@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked, useBinding, useState } from "@rbxts/roact-hooked";
+import { withHooks, useBinding, useState } from "@rbxts/roact-hooked";
 import BrightButton from "components/BrightButton";
 import BrightSlider from "components/BrightSlider";
 import Canvas from "components/Canvas";
@@ -156,4 +156,4 @@ function SliderComponent(props: {
 	);
 }
 
-const Slider = hooked(SliderComponent);
+const Slider = withHooks(SliderComponent);

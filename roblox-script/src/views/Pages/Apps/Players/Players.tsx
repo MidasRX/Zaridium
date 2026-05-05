@@ -1,5 +1,5 @@
 import Roact from "@rbxts/roact";
-import { hooked } from "@rbxts/roact-hooked";
+import { withHooks } from "@rbxts/roact-hooked";
 import Card from "components/Card";
 import { useTheme } from "hooks/use-theme";
 import { DashboardPage } from "store/models/dashboard.model";
@@ -22,4 +22,4 @@ function Players() {
 	);
 }
 
-export default hooked(Players);
+export default withHooks(Players);
