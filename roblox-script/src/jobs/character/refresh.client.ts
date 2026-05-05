@@ -1,7 +1,5 @@
 import { Players, Workspace } from "@rbxts/services";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { JobsAction } from "store/actions/jobs.action";
-
 const MAX_RESPAWN_TIME = 10;
 
 const player = Players.LocalPlayer;
@@ -10,11 +8,7 @@ async function main() {
 	const store = await getStore();
 
 	function deactivate() {
-		store.dispatch({
-			type: "jobs/setJobActive",
-			jobName: "refresh",
-			active: false,
-		} as JobsAction);
+		store.setJobActive("refresh", false);
 	}
 
 	await onJobChange("refresh", (job, state) => {

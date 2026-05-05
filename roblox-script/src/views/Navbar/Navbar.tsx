@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import Acrylic from "components/Acrylic";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -75,7 +74,7 @@ function Navbar() {
 			</Canvas>
 
 			{/* Overlapping border */}
-			{theme.outlined && <Border Key="border" color={theme.foreground} radius={8} transparency={0.8} />}
+			{theme.outlined && <Border key="border" color={theme.foreground} radius={8} transparency={0.8} />}
 
 			{/* Tabs */}
 			<NavbarTab page={DashboardPage.Home} />
@@ -89,11 +88,11 @@ function Navbar() {
 	);
 }
 
-export default withHooks(Navbar);
+export default (Navbar);
 
 function Underglow(props: {
-	sequenceColor: Roact.Binding<Color3>;
-	position: Roact.Binding<number>;
+	sequenceColor: React.Binding<Color3>;
+	position: React.Binding<number>;
 	transparency: number;
 }) {
 	return (

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "@rbxts/roact-hooked";
+import { useCallback, useState } from "@rbxts/react";
 
 export function useForcedUpdate() {
 	const [, setState] = useState(0);

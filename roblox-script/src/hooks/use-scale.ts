@@ -1,9 +1,9 @@
-import Roact from "@rbxts/roact";
-import { useContext } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useContext } from "@rbxts/react";
 import { ScaleContext } from "context/scale-context";
 
-const [defaultScale] = Roact.createBinding(1);
+const [defaultScale] = React.createBinding(1);
 
-export function useScale(): Roact.Binding<number> {
+export function useScale(): React.Binding<number> {
 	return useContext(ScaleContext) ?? defaultScale;
 }

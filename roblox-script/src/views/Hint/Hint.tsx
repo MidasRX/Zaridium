@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useEffect, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect, useState } from "@rbxts/react";
 import { useAppSelector } from "hooks/common/rodux-hooks";
 import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
@@ -39,4 +39,4 @@ function Hint() {
 	);
 }
 
-export default withHooks(Hint);
+export default (Hint);

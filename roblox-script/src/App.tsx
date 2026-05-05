@@ -1,4 +1,4 @@
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 import Dashboard from "./views/Dashboard";
 
 // Above topbar, below prompts

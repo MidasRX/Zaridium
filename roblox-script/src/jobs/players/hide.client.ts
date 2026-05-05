@@ -1,8 +1,6 @@
 import { Players } from "@rbxts/services";
 import { getSelectedPlayer } from "jobs/helpers/get-selected-player";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { setJobActive } from "store/actions/jobs.action";
-
 // Store the currently hidden character to restore them later. Don't replace
 // characterParent with `nil` to avoid setting any parent to `nil`.
 const current = new Map<
@@ -44,12 +42,12 @@ function unhide(player: Player, setParent: boolean) {
 async function main() {
 	const store = await getStore();
 	const playerSelected = await getSelectedPlayer((player) => {
-		store.dispatch(setJobActive("hide", player ? current.has(player) : false));
+		store.setJobActive("hide", player ? current.has(player) : false);
 	});
 
 	Players.PlayerRemoving.Connect((player) => {
 		if (player === playerSelected.current) {
-			store.dispatch(setJobActive("hide", false));
+			store.setJobActive("hide", false);
 		} else {
 			unhide(player, false);
 		}
@@ -58,7 +56,7 @@ async function main() {
 	await onJobChange("hide", (job) => {
 		const player = playerSelected.current;
 		if (!player) {
-			store.dispatch(setJobActive("hide", false));
+			store.setJobActive("hide", false);
 			return;
 		}
 

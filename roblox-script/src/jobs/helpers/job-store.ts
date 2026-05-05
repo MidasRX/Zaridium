@@ -1,10 +1,10 @@
 import type { JobsState } from "store/models/jobs.model";
-import type { RootState, RootStore } from "store/store";
+import type { RootProducer, RootState } from "store/store";
 import { setInterval } from "utils/timeout";
 
-const store: { current?: RootStore } = {};
+const store: { current?: RootProducer } = {};
 
-export function setStore(newStore: RootStore) {
+export function setStore(newStore: RootProducer) {
 	if (store.current) {
 		throw "Store has already been set";
 	}
@@ -15,7 +15,7 @@ export async function getStore() {
 	if (store.current) {
 		return store.current;
 	}
-	return new Promise<RootStore>((resolve, _, onCancel) => {
+	return new Promise<RootProducer>((resolve, _, onCancel) => {
 		const interval = setInterval(() => {
 			if (store.current) {
 				resolve(store.current);
@@ -35,13 +35,16 @@ export async function onJobChange<K extends keyof JobsState>(
 	const store = await getStore();
 	let lastJob = store.getState().jobs[jobName];
 
-	return store.changed.connect((newState) => {
-		const job = newState.jobs[jobName];
-		if (!shallowEqual(job, lastJob)) {
-			lastJob = job;
-			task.defer(callback, job, newState);
-		}
-	});
+	return store.subscribe(
+		(state) => state,
+		(newState) => {
+			const job = newState.jobs[jobName];
+			if (!shallowEqual(job, lastJob)) {
+				lastJob = job;
+				task.defer(callback, job, newState);
+			}
+		},
+	);
 }
 
 function shallowEqual(a: object, b: object) {

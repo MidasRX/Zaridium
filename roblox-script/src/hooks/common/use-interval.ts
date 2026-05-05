@@ -1,4 +1,4 @@
-import { useEffect } from "@rbxts/roact-hooked";
+import { useEffect } from "@rbxts/react";
 import { clearInterval, setInterval } from "utils/timeout";
 
 export function useInterval(callback: () => void, delay?: number, deps: unknown[] = []) {

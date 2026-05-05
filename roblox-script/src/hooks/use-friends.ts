@@ -1,4 +1,4 @@
-import { useMemo } from "@rbxts/roact-hooked";
+import { useMemo } from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import { usePromise } from "hooks/common/use-promise";
 

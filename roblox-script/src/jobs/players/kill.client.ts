@@ -1,8 +1,6 @@
 import { Players, Workspace } from "@rbxts/services";
 import { getSelectedPlayer } from "jobs/helpers/get-selected-player";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { setJobActive } from "store/actions/jobs.action";
-
 const player = Players.LocalPlayer;
 
 // https://github.com/EdgeIY/infiniteyield/blob/master/source#L11261
@@ -75,7 +73,7 @@ async function bringVictimToVoid(victim: Player) {
 	const location = oldRootPart?.IsA("BasePart") ? oldRootPart.CFrame : undefined;
 
 	// Refresh the character to increase chance of success
-	store.dispatch(setJobActive("refresh", true));
+	store.setJobActive("refresh", true);
 
 	// Wait for the character to respawn
 	await Promise.fromEvent(
@@ -115,13 +113,13 @@ async function main() {
 	await onJobChange("kill", (job) => {
 		if (job.active) {
 			if (!playerSelected.current) {
-				store.dispatch(setJobActive("kill", false));
+				store.setJobActive("kill", false);
 				return;
 			}
 
 			bringVictimToVoid(playerSelected.current)
 				.catch((err) => warn(`[kill-worker] ${err}`))
-				.finally(() => store.dispatch(setJobActive("kill", false)));
+				.finally(() => store.setJobActive("kill", false));
 		}
 	});
 }

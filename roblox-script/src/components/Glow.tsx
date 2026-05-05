@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useBinding } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useBinding } from "@rbxts/react";
 import { useScale } from "hooks/use-scale";
 import { GradientTheme } from "themes/theme.interface";
 import { asBinding, BindingOrValue } from "utils/binding-util";
@@ -19,7 +19,7 @@ export const RADIUS_TO_CENTER_OFFSET: Record<GlowRadius, number> = {
 	[GlowRadius.Size198]: 198 / 2,
 };
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	radius: GlowRadius;
 	size: BindingOrValue<UDim2>;
 	position: BindingOrValue<UDim2>;
@@ -37,7 +37,7 @@ function Glow({
 	gradient,
 	transparency = 0,
 	maintainCornerRadius,
-	[Roact.Children]: children,
+	children,
 }: Props) {
 	const [absoluteSize, setAbsoluteSize] = useBinding(new Vector2());
 	const scaleFactor = useScale();
@@ -46,7 +46,7 @@ function Glow({
 	// When the size gets too small, Roblox automatically decreases the corner
 	// radius. This binding makes sure the glow effect never reaches that point.
 	const sizeModifier = maintainCornerRadius
-		? Roact.joinBindings({
+		? React.joinBindings({
 				absoluteSize,
 				scaleFactor,
 				size: asBinding(size),
@@ -60,7 +60,7 @@ function Glow({
 	// Ignores offset when calculating the current size, and only uses the X-axis.
 	// Intended for the Slider component!!
 	const transparencyModifier = maintainCornerRadius
-		? Roact.joinBindings({
+		? React.joinBindings({
 				absoluteSize,
 				scaleFactor,
 				size: asBinding(size),
@@ -97,7 +97,7 @@ function Glow({
 			>
 				{gradient && (
 					<uigradient
-						Key="gradient"
+						key="gradient"
 						Color={gradient.color}
 						Transparency={gradient.transparency}
 						Rotation={gradient.rotation}
@@ -109,4 +109,4 @@ function Glow({
 	);
 }
 
-export default withHooks(Glow);
+export default (Glow);

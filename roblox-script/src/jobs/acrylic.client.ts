@@ -35,7 +35,7 @@ async function main() {
 
 	let timeout: Timeout | undefined;
 
-	store.changed.connect((newState) => {
+	store.subscribe((state) => state, (newState) => {
 		timeout?.clear();
 		timeout = undefined;
 

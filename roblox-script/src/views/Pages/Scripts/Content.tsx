@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import Canvas from "components/Canvas";
 import { useScale } from "hooks/use-scale";
 import { hex } from "utils/color3";
@@ -63,7 +62,7 @@ function Content({ header, body, footer }: Props) {
 	);
 }
 
-function HeaderTopLeft(props: { header: string; scaleFactor: Roact.Binding<number> }) {
+function HeaderTopLeft(props: { header: string; scaleFactor: React.Binding<number> }) {
 	return (
 		<textlabel
 			Text={props.header}
@@ -80,7 +79,7 @@ function HeaderTopLeft(props: { header: string; scaleFactor: Roact.Binding<numbe
 	);
 }
 
-function HeaderCenter(props: { header: string; scaleFactor: Roact.Binding<number> }) {
+function HeaderCenter(props: { header: string; scaleFactor: React.Binding<number> }) {
 	return (
 		<textlabel
 			Text={props.header}
@@ -99,4 +98,4 @@ function HeaderCenter(props: { header: string; scaleFactor: Roact.Binding<number
 	);
 }
 
-export default withHooks(Content);
+export default (Content);

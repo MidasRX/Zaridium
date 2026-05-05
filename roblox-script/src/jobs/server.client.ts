@@ -1,6 +1,5 @@
 import { HttpService, Players, TeleportService } from "@rbxts/services";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { setJobActive } from "store/actions/jobs.action";
 import * as http from "utils/http";
 import { setTimeout, Timeout } from "utils/timeout";
 
@@ -66,14 +65,14 @@ async function main() {
 		clearTimeout();
 
 		if (state.jobs.switchServer.active) {
-			setJobActive("switchServer", false);
+			store.setJobActive("switchServer", false);
 		}
 
 		if (job.active) {
 			timeout = setTimeout(() => {
 				onRejoin().catch((err) => {
 					warn(`[server-worker-rejoin] ${err}`);
-					store.dispatch(setJobActive("rejoinServer", false));
+					store.setJobActive("rejoinServer", false);
 				});
 			}, 1000);
 		}
@@ -83,14 +82,14 @@ async function main() {
 		clearTimeout();
 
 		if (state.jobs.rejoinServer.active) {
-			setJobActive("rejoinServer", false);
+			store.setJobActive("rejoinServer", false);
 		}
 
 		if (job.active) {
 			timeout = setTimeout(() => {
 				onServerHop().catch((err) => {
 					warn(`[server-worker-switch] ${err}`);
-					store.dispatch(setJobActive("switchServer", false));
+					store.setJobActive("switchServer", false);
 				});
 			}, 1000);
 		}

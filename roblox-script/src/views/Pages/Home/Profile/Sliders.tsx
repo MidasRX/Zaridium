@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useBinding, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useBinding, useState } from "@rbxts/react";
 import BrightButton from "components/BrightButton";
 import BrightSlider from "components/BrightSlider";
 import Canvas from "components/Canvas";
@@ -7,8 +7,6 @@ import { SpringOptions } from "hooks/common/flipper-hooks";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
 import { useTheme } from "hooks/use-theme";
-import { clearHint, setHint } from "store/actions/dashboard.action";
-import { setJobActive, setJobValue } from "store/actions/jobs.action";
 import { JobsWithValue } from "store/models/jobs.model";
 import { px, scale } from "utils/udim2";
 
@@ -87,7 +85,7 @@ function SliderComponent(props: {
 		<Canvas size={px(278, 49)} position={px(0, props.position)}>
 			<BrightSlider
 				onValueChanged={setValue}
-				onRelease={() => dispatch(setJobValue(props.jobName, math.round(value.getValue())))}
+				onRelease={() => dispatch.setJobValue(props.jobName, math.round(value.getValue()))}
 				min={props.min}
 				max={props.max}
 				initialValue={job.value}
@@ -115,14 +113,14 @@ function SliderComponent(props: {
 			</BrightSlider>
 
 			<BrightButton
-				onActivate={() => dispatch(setJobActive(props.jobName, !job.active))}
+				onActivate={() => dispatch.setJobActive(props.jobName, !job.active)}
 				onHover={(hovered) => {
 					if (hovered) {
 						setHovered(true);
-						dispatch(setHint(props.hint));
+						dispatch.setHint(props.hint);
 					} else {
 						setHovered(false);
-						dispatch(clearHint());
+						dispatch.clearHint();
 					}
 				}}
 				size={px(85, 49)}
@@ -156,4 +154,4 @@ function SliderComponent(props: {
 	);
 }
 
-const Slider = withHooks(SliderComponent);
+const Slider = (SliderComponent);

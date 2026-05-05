@@ -1,15 +1,15 @@
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 
-export type BindingOrValue<T> = T | Roact.Binding<T>;
+export type BindingOrValue<T> = T | React.Binding<T>;
 
-export function isBinding(binding: unknown): binding is Roact.Binding<unknown> {
+export function isBinding(binding: unknown): binding is React.Binding<unknown> {
 	return typeIs(binding, "table") && "getValue" in binding;
 }
 
-export function mapBinding<T, U>(value: BindingOrValue<T>, transform: (value: T) => U): Roact.Binding<U> {
-	return isBinding(value) ? value.map(transform) : Roact.createBinding(transform(value))[0];
+export function mapBinding<T, U>(value: BindingOrValue<T>, transform: (value: T) => U): React.Binding<U> {
+	return isBinding(value) ? value.map(transform) : React.createBinding(transform(value))[0];
 }
 
-export function asBinding<T>(value: BindingOrValue<T>): Roact.Binding<T> {
-	return isBinding(value) ? value : Roact.createBinding(value)[0];
+export function asBinding<T>(value: BindingOrValue<T>): React.Binding<T> {
+	return isBinding(value) ? value : React.createBinding(value)[0];
 }

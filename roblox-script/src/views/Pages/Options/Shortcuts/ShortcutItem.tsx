@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooksPure, useEffect, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect, useState } from "@rbxts/react";
 import { UserInputService } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -10,7 +10,6 @@ import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
 import { useIsPageOpen } from "hooks/use-current-page";
 import { useTheme } from "hooks/use-theme";
-import { removeShortcut, setShortcut } from "store/actions/options.action";
 import { DashboardPage } from "store/models/dashboard.model";
 import { lerp } from "utils/number-util";
 import { px, scale } from "utils/udim2";
@@ -76,18 +75,18 @@ function ShortcutItem({ onActivate, onSelect, selectedItem, action, description,
 				case Enum.KeyCode.Unknown:
 					break;
 				case Enum.KeyCode.Escape:
-					dispatch(removeShortcut(action));
+					dispatch.removeShortcut(action);
 					onSelect(undefined);
 					break;
 				case Enum.KeyCode.Backspace:
-					dispatch(removeShortcut(action));
+					dispatch.removeShortcut(action);
 					onSelect(undefined);
 					break;
 				case Enum.KeyCode.Return:
 					onSelect(undefined);
 					break;
 				default:
-					dispatch(setShortcut(action, input.KeyCode.Value));
+					dispatch.setShortcut(action, input.KeyCode.Value);
 					onSelect(undefined);
 					break;
 			}
@@ -219,4 +218,4 @@ function ShortcutItem({ onActivate, onSelect, selectedItem, action, description,
 	);
 }
 
-export default withHooksPure(ShortcutItem);
+export default (ShortcutItem);

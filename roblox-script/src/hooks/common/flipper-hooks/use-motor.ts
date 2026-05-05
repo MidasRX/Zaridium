@@ -1,24 +1,16 @@
-import { GroupMotor, SingleMotor } from "@rbxts/flipper";
-import { useMutable } from "@rbxts/roact-hooked";
+import { useRef } from "@rbxts/react";
+import { Animatable, createMotion, Motion } from "@rbxts/ripple";
 
-// Overload bc it messes up implementation
-function createMotor<T extends number | Array<number> | Record<string, number>>(
-	initialValue: T,
-): T extends number ? SingleMotor : GroupMotor<T>;
-function createMotor<T extends number | Array<number> | Record<string, number>>(
-	initialValue: T,
-): SingleMotor | GroupMotor<T> {
-	if (typeIs(initialValue, "number")) {
-		return new SingleMotor(initialValue);
-	} else if (typeIs(initialValue, "table")) {
-		return new GroupMotor(initialValue);
-	} else {
-		throw `Invalid type for initialValue. Expected 'number' or 'table', got '${initialValue}'`;
+/**
+ * Returns a stable Ripple Motion for the given animatable initial value.
+ * The Motion is created once on mount and started immediately.
+ */
+export function useMotor<T extends Animatable>(initialValue: T): Motion<T> {
+	const ref = useRef<Motion<T>>();
+	if (ref.current === undefined) {
+		ref.current = createMotion(initialValue);
+		ref.current.start();
 	}
+	return ref.current;
 }
 
-export function useMotor<T extends number | Array<number> | Record<string, number>>(
-	initialValue: T,
-): T extends number ? SingleMotor : GroupMotor<T> {
-	return useMutable(createMotor(initialValue)).current;
-}

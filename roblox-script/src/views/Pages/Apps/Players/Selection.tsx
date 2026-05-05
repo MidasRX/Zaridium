@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useEffect, useMemo, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect, useMemo, useState } from "@rbxts/react";
 import { Players, TextService } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -12,7 +12,6 @@ import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
 import { useIsPageOpen } from "hooks/use-current-page";
 import { useTheme } from "hooks/use-theme";
-import { playerDeselected, playerSelected } from "store/actions/dashboard.action";
 import { DashboardPage } from "store/models/dashboard.model";
 import { arrayToMap } from "utils/array-util";
 import { lerp } from "utils/number-util";
@@ -68,7 +67,7 @@ function Selection() {
 	// Deselect the player if they are no longer in the game.
 	useEffect(() => {
 		if (playerSelected !== undefined && !sortedPlayers.find((player) => player.Name === playerSelected)) {
-			dispatch(playerDeselected());
+			dispatch.playerDeselected();
 		}
 	}, [players, playerSelected]);
 
@@ -97,7 +96,7 @@ function Selection() {
 	);
 }
 
-export default withHooks(Selection);
+export default (Selection);
 
 interface PlayerEntryProps {
 	name: string;
@@ -122,7 +121,7 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 		[text],
 	);
 	const textScrollOffset = useLinear(hovered ? ENTRY_WIDTH - ENTRY_TEXT_PADDING - 20 - textSize.X : 0, {
-		velocity: hovered ? 40 : 150,
+		duration: hovered ? 2 : 0.5,
 	}).map((x) => new UDim(0, math.min(x, 0)));
 
 	const background = useSpring(
@@ -212,9 +211,9 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 					Activated: () => {
 						const player = Players.FindFirstChild(name);
 						if (!isSelected && player?.IsA("Player")) {
-							dispatch(playerSelected(player));
+							dispatch.playerSelected(player);
 						} else {
-							dispatch(playerDeselected());
+							dispatch.playerDeselected();
 						}
 					},
 					MouseEnter: () => setHovered(true),
@@ -228,4 +227,4 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 	);
 }
 
-const PlayerEntry = withHooks(PlayerEntryComponent);
+const PlayerEntry = (PlayerEntryComponent);

@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useMemo } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useMemo } from "@rbxts/react";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useTheme } from "hooks/use-theme";
@@ -49,4 +49,4 @@ function Themes() {
 	);
 }
 
-export default withHooks(Themes);
+export default (Themes);

@@ -1,8 +1,11 @@
-import { Instant } from "@rbxts/flipper";
-import type Roact from "@rbxts/roact";
+import type { Binding } from "@rbxts/react";
 
-import { useGoal } from "hooks/common/flipper-hooks/use-goal";
+import { getBinding } from "hooks/common/flipper-hooks/get-binding";
+import { useMotor } from "hooks/common/flipper-hooks/use-motor";
 
-export function useInstant(targetValue: number): Roact.Binding<number> {
-	return useGoal(new Instant(targetValue));
+export function useInstant(targetValue: number): Binding<number> {
+	const motor = useMotor(targetValue);
+	motor.setPosition(targetValue);
+	return getBinding(motor);
 }
+

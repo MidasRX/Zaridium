@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooksPure } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import Canvas from "components/Canvas";
 import * as http from "utils/http";
 import { scale } from "utils/udim2";
@@ -199,4 +198,4 @@ function Scripts() {
 	);
 }
 
-export default withHooksPure(Scripts);
+export default (Scripts);

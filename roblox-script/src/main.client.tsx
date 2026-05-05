@@ -1,10 +1,10 @@
 import Make from "@rbxts/make";
-import Roact from "@rbxts/roact";
-import { StoreProvider as Provider } from "@rbxts/roact-rodux-hooked";
+import React from "@rbxts/react";
+import { ReflexProvider } from "@rbxts/react-reflex";
+import { createRoot } from "@rbxts/react-roblox";
 import { Players } from "@rbxts/services";
 import { IS_DEV } from "constants";
 import { setStore } from "jobs";
-import { toggleDashboard } from "store/actions/dashboard.action";
 import { configureStore } from "store/store";
 import App from "./App";
 
@@ -16,11 +16,11 @@ setStore(store);
  */
 async function mount() {
 	const container = Make("Folder", {});
-	Roact.mount(
-		<Provider store={store}>
+	const root = createRoot(container);
+	root.render(
+		<ReflexProvider producer={store}>
 			<App />
-		</Provider>,
-		container,
+		</ReflexProvider>,
 	);
 	return container.WaitForChild(1) as ScreenGui;
 }
@@ -54,7 +54,7 @@ async function main() {
 
 	// If 3 seconds passed since the game started, show the dashboard
 	if (time() > 3) {
-		task.defer(() => store.dispatch(toggleDashboard()));
+		task.defer(() => store.toggleDashboard());
 	}
 
 	if (getgenv) {

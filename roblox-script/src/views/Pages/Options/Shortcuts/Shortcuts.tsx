@@ -1,11 +1,9 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useAppDispatch, useAppStore } from "hooks/common/rodux-hooks";
 import { useTheme } from "hooks/use-theme";
-import { toggleDashboard } from "store/actions/dashboard.action";
-import { setJobActive } from "store/actions/jobs.action";
 import { DashboardPage } from "store/models/dashboard.model";
 import { px, scale } from "utils/udim2";
 import ShortcutItem, { ENTRY_HEIGHT, PADDING } from "./ShortcutItem";
@@ -43,7 +41,7 @@ function Shortcuts() {
 				>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(toggleDashboard());
+							dispatch.toggleDashboard();
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -53,7 +51,7 @@ function Shortcuts() {
 					/>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(setJobActive("flight", !store.getState().jobs.flight.active));
+							dispatch.setJobActive("flight", !store.getState().jobs.flight.active);
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -63,7 +61,7 @@ function Shortcuts() {
 					/>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(setJobActive("freecam", !store.getState().jobs.freecam.active));
+							dispatch.setJobActive("freecam", !store.getState().jobs.freecam.active);
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -73,7 +71,7 @@ function Shortcuts() {
 					/>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(setJobActive("ghost", !store.getState().jobs.ghost.active));
+							dispatch.setJobActive("ghost", !store.getState().jobs.ghost.active);
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -83,7 +81,7 @@ function Shortcuts() {
 					/>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(setJobActive("walkSpeed", !store.getState().jobs.walkSpeed.active));
+							dispatch.setJobActive("walkSpeed", !store.getState().jobs.walkSpeed.active);
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -93,7 +91,7 @@ function Shortcuts() {
 					/>
 					<ShortcutItem
 						onActivate={() => {
-							dispatch(setJobActive("jumpHeight", !store.getState().jobs.jumpHeight.active));
+							dispatch.setJobActive("jumpHeight", !store.getState().jobs.jumpHeight.active);
 						}}
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
@@ -107,4 +105,4 @@ function Shortcuts() {
 	);
 }
 
-export default withHooks(Shortcuts);
+export default (Shortcuts);

@@ -1,6 +1,5 @@
-import { Spring } from "@rbxts/flipper";
-import Roact from "@rbxts/roact";
-import { withHooks, useCallback, useEffect, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useCallback, useEffect, useState } from "@rbxts/react";
 import { UserInputService } from "@rbxts/services";
 import { getBinding, SpringOptions, useMotor } from "hooks/common/flipper-hooks";
 import { px, scale } from "utils/udim2";
@@ -10,9 +9,9 @@ import Fill from "./Fill";
 import Glow, { GlowRadius } from "./Glow";
 
 // Spring options for the slider animation
-const SPRING_OPTIONS: SpringOptions = { frequency: 8 };
+const SPRING_OPTIONS: SpringOptions<number> = { frequency: 8 };
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	min: number;
 	max: number;
 	initialValue: number;
@@ -44,7 +43,7 @@ function BrightSlider({
 	indicatorTransparency,
 	onValueChanged,
 	onRelease,
-	[Roact.Children]: children,
+	children,
 }: Props) {
 	const valueMotor = useMotor(initialValue);
 	const valueBinding = getBinding(valueMotor);
@@ -84,7 +83,7 @@ function BrightSlider({
 			{/* Input handle */}
 			<Drag
 				onChange={(alpha) => {
-					valueMotor.setGoal(new Spring(alpha * (max - min) + min, SPRING_OPTIONS));
+					valueMotor.spring(alpha * (max - min) + min, SPRING_OPTIONS);
 					onValueChanged?.(alpha * (max - min) + min);
 				}}
 				onRelease={(alpha) => onRelease?.(alpha * (max - min) + min)}
@@ -94,7 +93,7 @@ function BrightSlider({
 	);
 }
 
-export default withHooks(BrightSlider);
+export default (BrightSlider);
 
 function DragComponent({
 	onChange,
@@ -152,4 +151,4 @@ function DragComponent({
 	);
 }
 
-const Drag = withHooks(DragComponent);
+const Drag = (DragComponent);

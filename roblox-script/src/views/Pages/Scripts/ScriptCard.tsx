@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useEffect } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect } from "@rbxts/react";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -16,7 +16,7 @@ import { DashboardPage } from "store/models/dashboard.model";
 import { hex } from "utils/color3";
 import { scale } from "utils/udim2";
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	index: number;
 	backgroundImage: string;
 	backgroundImageSize: Vector2;
@@ -45,7 +45,7 @@ function ScriptCard({
 	size,
 	position,
 	onActivate,
-	[Roact.Children]: children,
+	children,
 }: Props) {
 	const rerender = useForcedUpdate();
 
@@ -145,4 +145,4 @@ function ScriptCard({
 	);
 }
 
-export default withHooks(ScriptCard);
+export default (ScriptCard);

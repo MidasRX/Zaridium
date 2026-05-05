@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useCallback, useEffect, useMemo, useMutable } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useCallback, useEffect, useMemo, useRef } from "@rbxts/react";
 import { Workspace } from "@rbxts/services";
 import { acrylicInstance } from "components/Acrylic/acrylic-instance";
 import { useAppSelector } from "hooks/common/rodux-hooks";
@@ -31,7 +31,7 @@ function Acrylic({ radius, distance }: Props) {
 	return <>{isAcrylicBlurEnabled && <AcrylicBlur radius={radius} distance={distance} />}</>;
 }
 
-export default withHooks(Acrylic);
+export default (Acrylic);
 
 /**
  * Creates a glass object close to the camera that, when paired with a
@@ -39,7 +39,7 @@ export default withHooks(Acrylic);
  * effect.
  */
 function AcrylicBlurComponent({ radius = 0, distance = 0.001 }: Props) {
-	const frameInfo = useMutable({
+	const frameInfo = useRef({
 		topleft2d: new Vector2(),
 		topright2d: new Vector2(),
 		bottomright2d: new Vector2(),
@@ -169,4 +169,4 @@ function AcrylicBlurComponent({ radius = 0, distance = 0.001 }: Props) {
 	);
 }
 
-const AcrylicBlur = withHooks(AcrylicBlurComponent);
+const AcrylicBlur = (AcrylicBlurComponent);

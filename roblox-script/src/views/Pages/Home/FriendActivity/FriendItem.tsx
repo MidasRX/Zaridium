@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import { Players, TeleportService } from "@rbxts/services";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -46,7 +46,7 @@ function FriendItem({ friend, index }: Props) {
 			/>
 			{theme.outlined && (
 				<Border
-					Key="border"
+					key="border"
 					radius={23}
 					color={isHovered && theme.foregroundAccent ? theme.foregroundAccent : theme.foreground}
 					transparency={0.7}
@@ -96,4 +96,4 @@ function FriendItem({ friend, index }: Props) {
 	);
 }
 
-export default withHooks(FriendItem);
+export default (FriendItem);

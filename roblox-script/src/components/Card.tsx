@@ -1,6 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
-
+import React from "@rbxts/react";
 import Acrylic from "components/Acrylic";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
@@ -14,7 +12,7 @@ import { DashboardPage } from "store/models/dashboard.model";
 import { ViewTheme } from "themes/theme.interface";
 import { px } from "utils/udim2";
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	index: number;
 	page: DashboardPage;
 	theme: ViewTheme;
@@ -22,7 +20,7 @@ interface Props extends Roact.PropsWithChildren {
 	position: UDim2;
 }
 
-function Card({ index, page, theme, size, position, [Roact.Children]: children }: Props) {
+function Card({ index, page, theme, size, position, children }: Props) {
 	const isOpen = useIsPageOpen(page);
 	const isActive = useDelayedUpdate(isOpen, index * 40);
 
@@ -57,7 +55,7 @@ function Card({ index, page, theme, size, position, [Roact.Children]: children }
 			{children}
 
 			{/* Effects */}
-			{theme.acrylic && <Acrylic Key="acrylic" />}
+			{theme.acrylic && <Acrylic key="acrylic" />}
 
 			{/* Border overlaps children */}
 			{theme.outlined && <Border color={theme.foreground} radius={16} transparency={0.8} />}
@@ -65,4 +63,4 @@ function Card({ index, page, theme, size, position, [Roact.Children]: children }
 	);
 }
 
-export default withHooks(Card);
+export default (Card);

@@ -1,3 +1,3 @@
-import Roact from "@rbxts/roact";
+import React from "@rbxts/react";
 
-export const ScaleContext = Roact.createContext<Roact.Binding<number>>(Roact.createBinding(1)[0]);
+export const ScaleContext = React.createContext<React.Binding<number>>(React.createBinding(1)[0]);

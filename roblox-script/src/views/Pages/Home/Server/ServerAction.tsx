@@ -1,11 +1,9 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import BrightButton from "components/BrightButton";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
 import { useTheme } from "hooks/use-theme";
-import { clearHint, setHint } from "store/actions/dashboard.action";
-import { setJobActive } from "store/actions/jobs.action";
 import { JobsState } from "store/models/jobs.model";
 import { px, scale } from "utils/udim2";
 
@@ -36,14 +34,14 @@ function ServerAction({ action, hint, icon, size, position }: Props) {
 
 	return (
 		<BrightButton
-			onActivate={() => dispatch(setJobActive(action, !active))}
+			onActivate={() => dispatch.setJobActive(action, !active)}
 			onHover={(hovered) => {
 				if (hovered) {
 					setHovered(true);
-					dispatch(setHint(hint));
+					dispatch.setHint(hint);
 				} else {
 					setHovered(false);
-					dispatch(clearHint());
+					dispatch.clearHint();
 				}
 			}}
 			size={size}
@@ -70,4 +68,4 @@ function ServerAction({ action, hint, icon, size, position }: Props) {
 	);
 }
 
-export default withHooks(ServerAction);
+export default (ServerAction);

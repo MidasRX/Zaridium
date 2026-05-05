@@ -5,7 +5,7 @@ export async function getSelectedPlayer(onChange?: (player: Player | undefined) 
 	const store = await getStore();
 	const playerSelected = { current: undefined as Player | undefined };
 
-	store.changed.connect((newState) => {
+	store.subscribe((state) => state, (newState) => {
 		const name = newState.dashboard.apps.playerSelected;
 
 		if (playerSelected.current?.Name !== name) {

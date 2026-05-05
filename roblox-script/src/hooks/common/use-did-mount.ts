@@ -1,7 +1,7 @@
-import { useEffect, useMutable } from "@rbxts/roact-hooked";
+import { useEffect, useRef } from "@rbxts/react";
 
 export function useDidMount(callback: Callback) {
-	const ref = useMutable<() => void>(callback);
+	const ref = useRef<() => void>(callback);
 	useEffect(() => {
 		if (ref.current) {
 			ref.current();
@@ -11,7 +11,7 @@ export function useDidMount(callback: Callback) {
 }
 
 export function useIsMount(): boolean {
-	const ref = useMutable(true);
+	const ref = useRef(true);
 	useEffect(() => {
 		ref.current = false;
 	}, []);

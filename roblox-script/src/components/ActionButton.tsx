@@ -1,10 +1,8 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import BrightButton from "components/BrightButton";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
-import { clearHint, setHint } from "store/actions/dashboard.action";
-import { setJobActive } from "store/actions/jobs.action";
 import { JobsState } from "store/models/jobs.model";
 import { Theme } from "themes/theme.interface";
 import { px } from "utils/udim2";
@@ -46,18 +44,18 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 		<BrightButton
 			onActivate={() => {
 				if (active && canDeactivate) {
-					dispatch(setJobActive(action, false));
+					dispatch.setJobActive(action, false);
 				} else if (!active) {
-					dispatch(setJobActive(action, true));
+					dispatch.setJobActive(action, true);
 				}
 			}}
 			onHover={(hovered) => {
 				if (hovered) {
 					setHovered(true);
-					dispatch(setHint(hint));
+					dispatch.setHint(hint);
 				} else {
 					setHovered(false);
-					dispatch(clearHint());
+					dispatch.clearHint();
 				}
 			}}
 			size={px(61, 49)}
@@ -87,4 +85,4 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 	);
 }
 
-export default withHooks(ActionButton);
+export default (ActionButton);

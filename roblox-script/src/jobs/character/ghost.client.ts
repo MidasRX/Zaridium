@@ -1,7 +1,5 @@
 import { Players, Workspace } from "@rbxts/services";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { JobsAction } from "store/actions/jobs.action";
-
 const player = Players.LocalPlayer;
 const screenGuisWithResetOnSpawn = new Array<ScreenGui>();
 
@@ -52,11 +50,7 @@ async function main() {
 
 async function deactivate() {
 	const store = await getStore();
-	store.dispatch({
-		type: "jobs/setJobActive",
-		jobName: "ghost",
-		active: false,
-	} as JobsAction);
+	store.setJobActive("ghost", false);
 }
 
 async function deactivateOnCharacterAdded() {

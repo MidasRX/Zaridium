@@ -1,9 +1,8 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import { BindingOrValue, mapBinding } from "utils/binding-util";
 import { scale } from "utils/udim2";
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	size?: BindingOrValue<UDim2>;
 	position?: BindingOrValue<UDim2>;
 	anchor?: Vector2;
@@ -15,7 +14,7 @@ interface Props extends Roact.PropsWithChildren {
 	};
 	clipsDescendants?: boolean;
 	zIndex?: number;
-	onChange?: Roact.JsxInstanceChangeEvents<Frame>;
+	onChange?: React.InstanceChangeEvent<Frame>;
 }
 
 function Canvas({
@@ -26,7 +25,7 @@ function Canvas({
 	clipsDescendants,
 	zIndex,
 	onChange = {},
-	[Roact.Children]: children,
+	children,
 }: Props) {
 	return (
 		<frame
@@ -40,7 +39,7 @@ function Canvas({
 		>
 			{padding !== undefined && (
 				<uipadding
-					Key="padding"
+					key="padding"
 					PaddingTop={mapBinding(padding.top, (px) => new UDim(0, px))}
 					PaddingRight={mapBinding(padding.right, (px) => new UDim(0, px))}
 					PaddingBottom={mapBinding(padding.bottom, (px) => new UDim(0, px))}
@@ -52,4 +51,4 @@ function Canvas({
 	);
 }
 
-export default withHooks(Canvas);
+export default (Canvas);

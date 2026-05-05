@@ -1,4 +1,4 @@
-import { useBinding, useEffect } from "@rbxts/roact-hooked";
+import { useBinding, useEffect } from "@rbxts/react";
 import { UserInputService } from "@rbxts/services";
 
 export function useMouseLocation(onChange?: (location: Vector2) => void) {

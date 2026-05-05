@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -8,7 +7,7 @@ import { BindingOrValue } from "utils/binding-util";
 import { hex } from "utils/color3";
 import { px, scale } from "utils/udim2";
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	size?: BindingOrValue<UDim2>;
 	position?: BindingOrValue<UDim2>;
 	radius?: BindingOrValue<number>;
@@ -34,7 +33,7 @@ function BrightButton({
 	onPress,
 	onRelease,
 	onHover,
-	[Roact.Children]: children,
+	children,
 }: Props) {
 	return (
 		<Canvas size={size} position={position}>
@@ -71,4 +70,4 @@ function BrightButton({
 	);
 }
 
-export default withHooks(BrightButton);
+export default (BrightButton);

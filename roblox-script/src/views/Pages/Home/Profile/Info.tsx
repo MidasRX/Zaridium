@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import Canvas from "components/Canvas";
 import { useDelayedUpdate } from "hooks/common/use-delayed-update";
@@ -15,7 +14,7 @@ function Info() {
 	const theme = useTheme("home").profile;
 	const isOpen = useIsPageOpen(DashboardPage.Home);
 
-	const [friends = [], , status] = useFriends();
+	const [friends = [], status] = useFriends();
 	const friendsOnline = friends.size();
 	const friendsJoined = friends.filter((friend) => "PlaceId" in friend && friend.PlaceId === game.PlaceId).size();
 
@@ -77,4 +76,4 @@ function Info() {
 	);
 }
 
-export default withHooks(Info);
+export default (Info);

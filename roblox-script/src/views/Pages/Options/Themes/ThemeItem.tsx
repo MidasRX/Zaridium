@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -9,7 +9,6 @@ import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
 import { useIsPageOpen } from "hooks/use-current-page";
 import { useTheme } from "hooks/use-theme";
-import { setTheme } from "store/actions/options.action";
 import { DashboardPage } from "store/models/dashboard.model";
 import { Theme } from "themes/theme.interface";
 import { getLuminance, hex } from "utils/color3";
@@ -117,7 +116,7 @@ function ThemeItem({ theme, index }: Props) {
 			{/* Input capture */}
 			<textbutton
 				Event={{
-					Activated: () => !isSelected && dispatch(setTheme(theme.name)),
+					Activated: () => !isSelected && dispatch.setTheme(theme.name),
 					MouseEnter: () => setHovered(true),
 					MouseLeave: () => setHovered(false),
 				}}
@@ -129,10 +128,10 @@ function ThemeItem({ theme, index }: Props) {
 	);
 }
 
-export default withHooks(ThemeItem);
+export default (ThemeItem);
 
 interface ThemePreviewProps {
-	color: Roact.Binding<Color3>;
+	color: React.Binding<Color3>;
 	previewTheme: Theme["preview"];
 }
 

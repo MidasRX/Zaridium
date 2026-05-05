@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useTheme } from "hooks/use-theme";
@@ -27,4 +26,4 @@ function Profile() {
 	);
 }
 
-export default withHooks(Profile);
+export default (Profile);

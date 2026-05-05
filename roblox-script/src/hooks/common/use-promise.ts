@@ -1,4 +1,4 @@
-import { Reducer, useEffect, useReducer } from "@rbxts/roact-hooked";
+import { Reducer, useEffect, useReducer } from "@rbxts/react";
 
 // https://github.com/bsonntag/react-use-promise
 

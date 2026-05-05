@@ -1,4 +1,4 @@
-import { useState } from "@rbxts/roact-hooked";
+import { useState } from "@rbxts/react";
 
 type SetStateAction<S> = Partial<S> | ((prevState: S) => Partial<S>);
 type Dispatch<A> = (action: A) => void;

@@ -1,23 +1,17 @@
-import Roact from "@rbxts/roact";
-import { StoreProvider as Provider } from "@rbxts/roact-rodux-hooked";
+import React from "@rbxts/react";
+import { ReflexProvider } from "@rbxts/react-reflex";
+import { createRoot } from "@rbxts/react-roblox";
 import Acrylic from "components/Acrylic/Acrylic";
-import { DashboardPage } from "store/models/dashboard.model";
 import { configureStore } from "store/store";
 import { hex } from "utils/color3";
 import { px, scale } from "utils/udim2";
 
 export = (target: Frame) => {
-	const handle = Roact.mount(
-		<Provider
-			store={configureStore({
-				dashboard: {
-					isOpen: true,
-					page: DashboardPage.Apps,
-					hint: undefined,
-					apps: {},
-				},
-			})}
-		>
+	const store = configureStore();
+	store.toggleDashboard();
+	const root = createRoot(target);
+	root.render(
+		<ReflexProvider producer={store}>
 			<frame
 				AnchorPoint={new Vector2(0.5, 0.5)}
 				Position={scale(0.3, 0.7)}
@@ -29,10 +23,7 @@ export = (target: Frame) => {
 				<uicorner CornerRadius={new UDim(0, 64)} />
 				<Acrylic radius={52} />
 			</frame>
-		</Provider>,
-		target,
-		"Acrylic",
+		</ReflexProvider>,
 	);
-
-	return () => Roact.unmount(handle);
+	return () => root.unmount();
 };

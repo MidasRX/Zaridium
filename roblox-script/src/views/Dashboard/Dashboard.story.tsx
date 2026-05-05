@@ -1,25 +1,17 @@
-import Roact from "@rbxts/roact";
-import { StoreProvider as Provider } from "@rbxts/roact-rodux-hooked";
-import { DashboardPage } from "store/models/dashboard.model";
+import React from "@rbxts/react";
+import { ReflexProvider } from "@rbxts/react-reflex";
+import { createRoot } from "@rbxts/react-roblox";
 import { configureStore } from "store/store";
 import Dashboard from "./Dashboard";
 
 export = (target: Frame) => {
-	const handle = Roact.mount(
-		<Provider
-			store={configureStore({
-				dashboard: {
-					isOpen: true,
-					page: DashboardPage.Home,
-					hint: undefined,
-					apps: {},
-				},
-			})}
-		>
+	const store = configureStore();
+	store.toggleDashboard();
+	const root = createRoot(target);
+	root.render(
+		<ReflexProvider producer={store}>
 			<Dashboard />
-		</Provider>,
-		target,
-		"Dashboard",
+		</ReflexProvider>,
 	);
-	return () => Roact.unmount(handle);
+	return () => root.unmount();
 };

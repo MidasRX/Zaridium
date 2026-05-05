@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import Canvas from "components/Canvas";
 import { useTheme } from "hooks/use-theme";
@@ -34,4 +33,4 @@ function Username() {
 	);
 }
 
-export default withHooks(Username);
+export default (Username);

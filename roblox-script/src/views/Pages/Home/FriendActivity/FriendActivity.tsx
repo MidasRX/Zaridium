@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useEffect, useReducer, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect, useReducer, useState } from "@rbxts/react";
 import Canvas from "components/Canvas";
 import Card from "components/Card";
 import { useInterval } from "hooks/common/use-interval";
@@ -14,7 +14,7 @@ import GameItem, { GAME_PADDING } from "./GameItem";
 function FriendActivity() {
 	const theme = useTheme("home").friendActivity;
 	const [update, forceUpdate] = useReducer((state: number) => state + 1, 0);
-	const [currentGames, , status] = useFriendActivity([update]);
+	const [currentGames, status] = useFriendActivity([update]);
 
 	// Update games state with currentGames if not empty, also do some sorting
 	const [games, setGames] = useState(currentGames);
@@ -65,4 +65,4 @@ function FriendActivity() {
 	);
 }
 
-export default withHooks(FriendActivity);
+export default (FriendActivity);

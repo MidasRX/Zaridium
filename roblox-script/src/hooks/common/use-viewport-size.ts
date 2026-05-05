@@ -1,4 +1,4 @@
-import { useBinding, useEffect, useState } from "@rbxts/roact-hooked";
+import { useBinding, useEffect, useState } from "@rbxts/react";
 import { Workspace } from "@rbxts/services";
 
 export function useViewportSize(onChange?: (size: Vector2) => void) {

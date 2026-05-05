@@ -1,5 +1,4 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import { Players } from "@rbxts/services";
 import Card from "components/Card";
 import { IS_DEV } from "constants";
@@ -83,4 +82,4 @@ function Server() {
 	);
 }
 
-export default withHooks(Server);
+export default (Server);

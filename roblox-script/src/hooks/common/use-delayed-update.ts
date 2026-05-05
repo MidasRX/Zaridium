@@ -1,4 +1,4 @@
-import { useEffect, useMutable, useState } from "@rbxts/roact-hooked";
+import { useEffect, useRef, useState } from "@rbxts/react";
 import { clearTimeout, setTimeout, Timeout } from "utils/timeout";
 
 interface IncomingUpdate {
@@ -19,7 +19,7 @@ function clearUpdates(updates: Map<number, IncomingUpdate>, laterThan?: number) 
 
 export function useDelayedUpdate<T>(value: T, delay: number, isImmediate?: (current: T) => boolean): T {
 	const [delayedValue, setDelayedValue] = useState(value);
-	const updates = useMutable(new Map<number, IncomingUpdate>());
+	const updates = useRef(new Map<number, IncomingUpdate>());
 
 	useEffect(() => {
 		// Cancel all updates if the change is immediate

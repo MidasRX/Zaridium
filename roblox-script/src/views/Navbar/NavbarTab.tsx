@@ -1,10 +1,9 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import { useAppDispatch } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
 import { useIsPageOpen } from "hooks/use-current-page";
 import { useTheme } from "hooks/use-theme";
-import { setDashboardPage } from "store/actions/dashboard.action";
 import { DashboardPage, PAGE_TO_ICON, PAGE_TO_INDEX } from "store/models/dashboard.model";
 import { px, scale } from "utils/udim2";
 
@@ -29,7 +28,7 @@ function NavbarTab({ page }: Props) {
 			Position={scale(PAGE_TO_INDEX[page] / 4, 0)}
 			BackgroundTransparency={1}
 			Event={{
-				Activated: () => dispatch(setDashboardPage(page)),
+				Activated: () => dispatch.setDashboardPage(page),
 				MouseEnter: () => setHovered(true),
 				MouseLeave: () => setHovered(false),
 			}}
@@ -47,4 +46,4 @@ function NavbarTab({ page }: Props) {
 	);
 }
 
-export default withHooks(NavbarTab);
+export default (NavbarTab);

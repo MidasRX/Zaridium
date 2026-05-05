@@ -1,12 +1,10 @@
 import { Workspace } from "@rbxts/services";
 import { getSelectedPlayer } from "jobs/helpers/get-selected-player";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { setJobActive } from "store/actions/jobs.action";
-
 async function main() {
 	const store = await getStore();
 	const playerSelected = await getSelectedPlayer(() => {
-		store.dispatch(setJobActive("spectate", false));
+		store.setJobActive("spectate", false);
 	});
 
 	let shouldResetCameraSubject = false;
@@ -19,7 +17,7 @@ async function main() {
 		camera.GetPropertyChangedSignal("CameraSubject").Connect(() => {
 			if (currentSubject !== camera.CameraSubject && store.getState().jobs.spectate.active) {
 				shouldResetCameraSubject = false;
-				store.dispatch(setJobActive("spectate", false));
+				store.setJobActive("spectate", false);
 			}
 		});
 	}
@@ -36,7 +34,7 @@ async function main() {
 			const cameraSubject = playerSelected.current?.Character?.FindFirstChildWhichIsA("Humanoid");
 
 			if (!cameraSubject) {
-				store.dispatch(setJobActive("spectate", false));
+				store.setJobActive("spectate", false);
 			} else {
 				shouldResetCameraSubject = true;
 

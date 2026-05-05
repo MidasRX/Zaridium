@@ -1,23 +1,22 @@
-import Roact from "@rbxts/roact";
-import { withHooks } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
 import { GradientTheme } from "themes/theme.interface";
 import { BindingOrValue, mapBinding } from "utils/binding-util";
 import { hex } from "utils/color3";
 import { scale } from "utils/udim2";
 
-interface Props extends Roact.PropsWithChildren {
+interface Props extends React.PropsWithChildren {
 	color?: BindingOrValue<Color3>;
 	gradient?: GradientTheme;
 	transparency?: BindingOrValue<number>;
 	radius?: BindingOrValue<number | "circular">;
 }
 
-function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, [Roact.Children]: children }: Props) {
+function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, children }: Props) {
 	return (
 		<frame Size={scale(1, 1)} BackgroundColor3={color} BackgroundTransparency={transparency}>
 			{gradient && (
 				<uigradient
-					Key="gradient"
+					key="gradient"
 					Color={gradient.color}
 					Transparency={gradient.transparency}
 					Rotation={gradient.rotation}
@@ -26,7 +25,7 @@ function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, 
 
 			{radius !== undefined && (
 				<uicorner
-					Key="corner"
+					key="corner"
 					CornerRadius={mapBinding(radius, (r) => (r === "circular" ? new UDim(1, 0) : new UDim(0, r)))}
 				/>
 			)}
@@ -36,4 +35,4 @@ function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, 
 	);
 }
 
-export default withHooks(Fill);
+export default (Fill);

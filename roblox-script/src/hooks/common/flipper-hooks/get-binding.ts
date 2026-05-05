@@ -1,20 +1,24 @@
-import { GroupMotor, isMotor, SingleMotor } from "@rbxts/flipper";
-import { Binding, createBinding } from "@rbxts/roact";
+import { Binding, createBinding } from "@rbxts/react";
+import { Animatable, Motion } from "@rbxts/ripple";
 
 const AssignedBinding = setmetatable({}, { __tostring: () => "AssignedBinding" }) as symbol;
 
-export function getBinding<T>(motor: SingleMotor | GroupMotor<T>): T extends undefined ? Binding<number> : Binding<T>;
-export function getBinding(motor: SingleMotor | GroupMotor<number>): Binding<number> {
-	assert(motor, "Missing argument #1: motor");
-	assert(isMotor(motor), "Provided value is not a motor");
+/**
+ * Returns a React Binding that mirrors the Motion's current value.
+ * The first call subscribes to motion.onChange and caches the binding
+ * on the motion itself so subsequent calls return the same binding.
+ */
+export function getBinding<T extends Animatable>(motion: Motion<T>): Binding<T> {
+	assert(motion, "Missing argument #1: motion");
 
-	if (AssignedBinding in motor) {
-		return motor[AssignedBinding as never];
+	if (AssignedBinding in motion) {
+		return motion[AssignedBinding as never];
 	}
 
-	const [binding, setBindingValue] = createBinding(motor.getValue());
-	motor.onStep(setBindingValue);
+	const [binding, setBindingValue] = createBinding(motion.getPosition());
+	motion.onChange((value) => setBindingValue(value));
 
-	motor[AssignedBinding as never] = binding as never;
+	motion[AssignedBinding as never] = binding as never;
 	return binding;
 }
+

@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooks, useEffect, useMemo, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useEffect, useMemo, useState } from "@rbxts/react";
 import { TextService } from "@rbxts/services";
 import Acrylic from "components/Acrylic";
 import Border from "components/Border";
@@ -57,7 +57,7 @@ function Clock() {
 				transparency={theme.transparency}
 				radius={8}
 			/>
-			{theme.outlined && <Border Key="border" color={theme.foreground} radius={8} transparency={0.8} />}
+			{theme.outlined && <Border key="border" color={theme.foreground} radius={8} transparency={0.8} />}
 
 			{/* Time */}
 			<imagelabel
@@ -85,4 +85,4 @@ function Clock() {
 	);
 }
 
-export default withHooks(Clock);
+export default (Clock);

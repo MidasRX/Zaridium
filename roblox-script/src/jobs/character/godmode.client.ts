@@ -1,7 +1,5 @@
 import { Players, Workspace } from "@rbxts/services";
 import { getStore, onJobChange } from "jobs/helpers/job-store";
-import { JobsAction } from "store/actions/jobs.action";
-
 const player = Players.LocalPlayer;
 
 let currentCharacter: Model | undefined;
@@ -25,11 +23,7 @@ async function main() {
 
 async function deactivate() {
 	const store = await getStore();
-	store.dispatch({
-		type: "jobs/setJobActive",
-		jobName: "godmode",
-		active: false,
-	} as JobsAction);
+	store.setJobActive("godmode", false);
 }
 
 async function deactivateOnCharacterAdded() {

@@ -1,10 +1,14 @@
-import { Spring } from "@rbxts/flipper";
-import type Roact from "@rbxts/roact";
+import type { Binding } from "@rbxts/react";
+import type { SpringOptions } from "@rbxts/ripple";
 
-import { useGoal } from "hooks/common/flipper-hooks/use-goal";
+import { getBinding } from "hooks/common/flipper-hooks/get-binding";
+import { useMotor } from "hooks/common/flipper-hooks/use-motor";
 
-export type SpringOptions = ConstructorParameters<typeof Spring>[1];
+export type { SpringOptions };
 
-export function useSpring(targetValue: number, options: SpringOptions): Roact.Binding<number> {
-	return useGoal(new Spring(targetValue, options));
+export function useSpring(targetValue: number, options?: SpringOptions<number>): Binding<number> {
+	const motor = useMotor(targetValue);
+	motor.spring(targetValue, options);
+	return getBinding(motor);
 }
+

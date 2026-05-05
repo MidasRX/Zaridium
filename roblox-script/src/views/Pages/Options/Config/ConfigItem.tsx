@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooksPure, useState } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useState } from "@rbxts/react";
 import Border from "components/Border";
 import Canvas from "components/Canvas";
 import Fill from "components/Fill";
@@ -7,8 +7,6 @@ import Glow, { GlowRadius } from "components/Glow";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
 import { useTheme } from "hooks/use-theme";
-import { clearHint, setHint } from "store/actions/dashboard.action";
-import { setConfig } from "store/actions/options.action";
 import { OptionsState } from "store/models/options.model";
 import { lerp } from "utils/number-util";
 import { px, scale } from "utils/udim2";
@@ -98,14 +96,14 @@ function ConfigItem({ action, description, hint, index }: Props) {
 			{/* Input capture */}
 			<textbutton
 				Event={{
-					Activated: () => dispatch(setConfig(action, !active)),
+					Activated: () => dispatch.setConfig(action, !active),
 					MouseEnter: () => {
 						setHovered(true);
-						dispatch(setHint(hint));
+						dispatch.setHint(hint);
 					},
 					MouseLeave: () => {
 						setHovered(false);
-						dispatch(clearHint());
+						dispatch.clearHint();
 					},
 				}}
 				Text=""
@@ -116,4 +114,4 @@ function ConfigItem({ action, description, hint, index }: Props) {
 	);
 }
 
-export default withHooksPure(ConfigItem);
+export default (ConfigItem);

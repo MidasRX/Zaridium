@@ -1,5 +1,5 @@
-import Roact from "@rbxts/roact";
-import { withHooksPure, useMemo } from "@rbxts/roact-hooked";
+import React from "@rbxts/react";
+import { useMemo } from "@rbxts/react";
 import Border from "components/Border";
 import { useDelayedUpdate } from "hooks/common/use-delayed-update";
 import { useSpring } from "hooks/common/use-spring";
@@ -71,4 +71,4 @@ function GameItem({ gameActivity, index }: Props) {
 	);
 }
 
-export default withHooksPure(GameItem);
+export default (GameItem);

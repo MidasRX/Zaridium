@@ -1,5 +1,5 @@
-import { GroupMotor, Spring } from "@rbxts/flipper";
 import { Players, RunService, UserInputService, Workspace } from "@rbxts/services";
+import { createMotion, Motion } from "@rbxts/ripple";
 import { onJobChange } from "jobs/helpers/job-store";
 
 const player = Players.LocalPlayer;
@@ -20,7 +20,8 @@ let speed = 16;
 // The root part and current CFrame. Undefined when there is no character.
 let humanoidRoot: BasePart | undefined;
 let coordinate: CFrame | undefined;
-let coordinateSpring = new GroupMotor([0, 0, 0], false);
+let coordinateSpring: Motion<{ x: number; y: number; z: number }> = createMotion({ x: 0, y: 0, z: 0 });
+coordinateSpring.start();
 
 async function main() {
 	await onJobChange("flight", (job) => {
@@ -46,10 +47,9 @@ async function main() {
 	RunService.Heartbeat.Connect((deltaTime) => {
 		if (enabled && humanoidRoot && coordinate) {
 			updateCoordinate(deltaTime);
-			coordinateSpring.setGoal([new Spring(coordinate.X), new Spring(coordinate.Y), new Spring(coordinate.Z)]);
-			coordinateSpring.step(deltaTime);
+			coordinateSpring.spring({ x: coordinate.X, y: coordinate.Y, z: coordinate.Z });
 
-			const [x, y, z] = coordinateSpring.getValue();
+			const { x, y, z } = coordinateSpring.getPosition();
 			humanoidRoot.AssemblyLinearVelocity = new Vector3();
 			humanoidRoot.CFrame = Workspace.CurrentCamera!.CFrame.Rotation.add(new Vector3(x, y, z));
 		}
@@ -99,7 +99,9 @@ function resetSpring() {
 	if (!coordinate) {
 		return;
 	}
-	coordinateSpring = new GroupMotor([coordinate.X, coordinate.Y, coordinate.Z], false);
+	coordinateSpring.destroy();
+	coordinateSpring = createMotion({ x: coordinate.X, y: coordinate.Y, z: coordinate.Z });
+	coordinateSpring.start();
 }
 
 function updateCoordinate(deltaTime: number) {
