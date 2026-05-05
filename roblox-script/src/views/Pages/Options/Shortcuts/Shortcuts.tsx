@@ -48,7 +48,7 @@ function Shortcuts() {
 						onSelect={setSelectedItem}
 						selectedItem={selectedItem}
 						action="toggleDashboard"
-						description="Open Orca"
+						description="Open Zaridium"
 						index={0}
 					/>
 					<ShortcutItem

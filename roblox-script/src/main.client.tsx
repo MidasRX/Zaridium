@@ -46,7 +46,7 @@ function render(app: ScreenGui) {
 
 async function main() {
 	if (getgenv && "_ORCA_IS_LOADED" in getgenv()) {
-		throw "Orca is already loaded!";
+		throw "Zaridium is already loaded!";
 	}
 
 	const app = await mount();
@@ -63,5 +63,5 @@ async function main() {
 }
 
 main().catch((err) => {
-	warn(`Orca failed to load: ${err}`);
+	warn(`Zaridium failed to load: ${err}`);
 });

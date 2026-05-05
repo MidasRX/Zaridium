@@ -1,5 +1,5 @@
 {
-	"name": "Orca Test Place",
+	"name": "Zaridium Test Place",
 	"tree": {
 		"$className": "DataModel",
 
@@ -9,7 +9,7 @@
 			"StarterPlayerScripts": {
 				"$className": "StarterPlayerScripts",
 
-				"Orca": {
+				"Zaridium": {
 					"$path": "out",
 					"include": {
 						"$path": "include",

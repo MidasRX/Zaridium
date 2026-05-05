@@ -47,8 +47,8 @@ async function onRejoin() {
 function queueExecution() {
 	const isRelease = VERSION.match("^.+%..+%..+$") !== undefined;
 	const code = isRelease
-		? 'loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/richie0866/orca/master/public/latest.lua"))()'
-		: 'loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/richie0866/orca/master/public/snapshot.lua"))()';
+		? 'loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/latest.lua"))()'
+		: 'loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/snapshot.lua"))()';
 
 	(syn?.queue_on_teleport ?? queue_on_teleport)?.(code);
 }

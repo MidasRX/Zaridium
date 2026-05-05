@@ -15,7 +15,7 @@ local DEBUG_MODE = getFlag("debug")
 local VERBOSE = getFlag("verbose")
 local MINIFY = getFlag("minify")
 
-local ROJO_INPUT = "Orca.rbxm"
+local ROJO_INPUT = "Zaridium.rbxm"
 local RUNTIME_FILE = "ci/runtime.lua"
 local BUNDLE_TEMP = "ci/bundle.tmp"
 
@@ -142,7 +142,7 @@ local function main()
 
 	if VERBOSE then
 		table.insert(output, 2, "local START_TIME = os.clock()")
-		table.insert(output, "print(\"[CI " .. VERSION .. "] Orca run in \" .. (os.clock() - START_TIME) * 1000 .. \" ms\")")
+		table.insert(output, "print(\"[CI " .. VERSION .. "] Zaridium run in \" .. (os.clock() - START_TIME) * 1000 .. \" ms\")")
 	end
 
 	-- Write to file

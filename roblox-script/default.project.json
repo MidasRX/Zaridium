@@ -1,5 +1,5 @@
 {
-	"name": "Orca",
+	"name": "Zaridium",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"
