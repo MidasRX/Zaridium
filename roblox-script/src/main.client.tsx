@@ -23,11 +23,13 @@ async function mount() {
 		</ReflexProvider>,
 	);
 	// React names the root child after its key/type, not "1" like Roact did, so take whichever child appears first.
-	const existing = container.GetChildren()[0];
-	if (existing) {
-		return existing as ScreenGui;
+	let app = container.GetChildren()[0];
+	if (!app) {
+		app = container.ChildAdded.Wait()[0];
+		// Resume outside the ChildAdded event: Roblox silently ignores re-parenting while the parent change is still being dispatched.
+		task.wait();
 	}
-	return container.ChildAdded.Wait()[0] as ScreenGui;
+	return app as ScreenGui;
 }
 
 /**

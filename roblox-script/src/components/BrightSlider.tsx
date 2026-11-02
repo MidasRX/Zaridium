@@ -128,11 +128,17 @@ function DragComponent({
 			BackgroundTransparency={1}
 			Event={{
 				InputBegan: (rbx, input) => {
-					if (input.UserInputType === Enum.UserInputType.MouseButton1) {
+					if (isPointerPress(input)) {
 						inputHandle?.Disconnect();
-						const handle = UserInputService.InputChanged.Connect((input) => {
-							if (input.UserInputType === Enum.UserInputType.MouseMovement) {
-								updateValue(getValueFromPosition(input.Position.X, rbx));
+						const dragInput = input;
+						const handle = UserInputService.InputChanged.Connect((moved) => {
+							// Mouse drags follow the cursor; touch drags follow the finger that started them.
+							const follows =
+								dragInput.UserInputType === Enum.UserInputType.Touch
+									? moved === dragInput
+									: moved.UserInputType === Enum.UserInputType.MouseMovement;
+							if (follows) {
+								updateValue(getValueFromPosition(moved.Position.X, rbx));
 							}
 						});
 						setHandle(handle);
@@ -140,7 +146,7 @@ function DragComponent({
 					}
 				},
 				InputEnded: (rbx, input) => {
-					if (input.UserInputType === Enum.UserInputType.MouseButton1) {
+					if (isPointerPress(input)) {
 						inputHandle?.Disconnect();
 						setHandle(undefined);
 						onRelease(getValueFromPosition(input.Position.X, rbx));
@@ -149,6 +155,10 @@ function DragComponent({
 			}}
 		/>
 	);
+}
+
+function isPointerPress(input: InputObject) {
+	return input.UserInputType === Enum.UserInputType.MouseButton1 || input.UserInputType === Enum.UserInputType.Touch;
 }
 
 const Drag = DragComponent;

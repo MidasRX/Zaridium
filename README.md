@@ -117,7 +117,8 @@ Nightly snapshot (bleeding edge, expect rough edges):
 loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/snapshot.lua"))()
 ```
 
-Press **K** to open and close it.
+Press **K** to open and close it. On touch devices (including Android executors) a **Z** button appears at the top
+of the screen instead; tap it to open and close the hub.
 
 ## Navigation
 
@@ -167,6 +168,14 @@ possible they are pinned to a specific commit.
 
 The hub needs `loadstring` and `game:HttpGet`. Executors that follow the sUNC standard should work; Synapse X is no longer
 supported. I do not publish a per-executor version table because I cannot test every executor on every Roblox update.
+
+### Mobile / Android
+
+The hub has touch support: an on-screen **Z** toggle button, touch dragging on sliders, and touch-based parallax. Flight uses the
+mobile thumbstick relative to the camera. This was checked by code review and by simulating touch in a desktop client; it has
+not been run on a physical Android device, and it depends on your executor providing loadstring, game:HttpGet and
+gethui (or CoreGui access). Keyboard shortcuts (the Shortcuts page) cannot be rebound on a touch-only device. Please open an
+issue with your executor name if something does not work.
 
 <br/>
 ## Project layout
@@ -230,7 +239,13 @@ npm run bundle       # compile + bundle to public/dev.lua
 
 ## Credits
 
-- **richie0866** created **Orca** (MIT), the UI and architecture that Zaridium Hub is based on. His GitHub account and repository\n  have since been removed, so the link goes to the [Wayback Machine archive](https://web.archive.org/web/20260702120759/https://github.com/richie0866/orca). The original licence notice is\n  preserved in [LICENSE](./LICENSE).\n- **[Obsidian](https://github.com/deividcomsono/Obsidian)** by deividcomsono and the **[mspaint](https://docs.mspaint.cc/obsidian)**\n  team (MIT) inspired the structure of Zaridium UI: window, tabs, groupboxes, a Flag/Options model and save/theme managers. No\n  Obsidian code is copied; Zaridium UI is written from scratch with a Material 3 design.\n- **[Material Symbols](https://github.com/google/material-design-icons)** by Google (Apache 2.0) provide the icons.
+- **richie0866** created **Orca** (MIT), the UI and architecture that Zaridium Hub is based on. His GitHub account and repository
+  have since been removed, so the link goes to the [Wayback Machine archive](https://web.archive.org/web/20260702120759/https://github.com/richie0866/orca). The original licence notice is
+  preserved in [LICENSE](./LICENSE).
+- **[Obsidian](https://github.com/deividcomsono/Obsidian)** by deividcomsono and the **[mspaint](https://docs.mspaint.cc/obsidian)**
+  team (MIT) inspired the structure of Zaridium UI: window, tabs, groupboxes, a Flag/Options model and save/theme managers. No
+  Obsidian code is copied; Zaridium UI is written from scratch with a Material 3 design.
+- **[Material Symbols](https://github.com/google/material-design-icons)** by Google (Apache 2.0) provide the icons.
 - **[Google Sans Flex](https://github.com/googlefonts/googlesans-flex)** (SIL Open Font License 1.1) provides the fonts. "Google" and
   "Google Sans" are trademarks of Google LLC; this project is not affiliated with Google. See
   [ui/assets/NOTICE.md](./ui/assets/NOTICE.md).

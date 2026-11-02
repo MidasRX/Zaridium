@@ -5,7 +5,7 @@
 --
 -- Author: 0866 (forked by MidasRX)
 -- License: MIT
--- Version: "snapshot-dbg"
+-- Version: "snapshot"
 -- GitHub: https://github.com/MidasRX/Zaridium
 --]]
 
@@ -144,7 +144,7 @@ end
 ---@return table<string, any> environment
 local function newEnv(id)
 	return setmetatable({
-		VERSION = "snapshot-dbg",
+		VERSION = "snapshot",
 		script = instanceFromId[id],
 		require = function (module)
 			return requireModuleInternal(module, instanceFromId[id])
@@ -208,6 +208,7 @@ newModule("App", "ModuleScript", "Zaridium.App", "Zaridium", function () local f
 local TS = require(script.Parent.include.RuntimeLib)\
 local React = TS.import(script, script.Parent, \"include\", \"node_modules\", \"@rbxts\", \"react\")\
 local Dashboard = TS.import(script, script.Parent, \"views\", \"Dashboard\").default\
+local MobileToggle = TS.import(script, script.Parent, \"views\", \"MobileToggle\").default\
 local DISPLAY_ORDER = 7\
 local function App()\
 \9return React.createElement(\"screengui\", {\
@@ -215,7 +216,7 @@ local function App()\
 \9\9ResetOnSpawn = false,\
 \9\9ZIndexBehavior = \"Sibling\",\
 \9\9DisplayOrder = DISPLAY_ORDER,\
-\9}, React.createElement(Dashboard))\
+\9}, React.createElement(Dashboard), React.createElement(MobileToggle))\
 end\
 local default = App\
 return {\
@@ -857,6 +858,7 @@ local function BrightSlider(_param)\
 \9}), children)\
 end\
 local default = BrightSlider\
+local isPointerPress\
 local function DragComponent(_param)\
 \9local onChange = _param.onChange\
 \9local onRelease = _param.onRelease\
@@ -882,14 +884,16 @@ local function DragComponent(_param)\
 \9\9BackgroundTransparency = 1,\
 \9\9Event = {\
 \9\9\9InputBegan = function(rbx, input)\
-\9\9\9\9if input.UserInputType == Enum.UserInputType.MouseButton1 then\
+\9\9\9\9if isPointerPress(input) then\
 \9\9\9\9\9local _result = inputHandle\
 \9\9\9\9\9if _result ~= nil then\
 \9\9\9\9\9\9_result:Disconnect()\
 \9\9\9\9\9end\
-\9\9\9\9\9local handle = UserInputService.InputChanged:Connect(function(input)\
-\9\9\9\9\9\9if input.UserInputType == Enum.UserInputType.MouseMovement then\
-\9\9\9\9\9\9\9updateValue(getValueFromPosition(input.Position.X, rbx))\
+\9\9\9\9\9local dragInput = input\
+\9\9\9\9\9local handle = UserInputService.InputChanged:Connect(function(moved)\
+\9\9\9\9\9\9local follows = if dragInput.UserInputType == Enum.UserInputType.Touch then moved == dragInput else moved.UserInputType == Enum.UserInputType.MouseMovement\
+\9\9\9\9\9\9if follows then\
+\9\9\9\9\9\9\9updateValue(getValueFromPosition(moved.Position.X, rbx))\
 \9\9\9\9\9\9end\
 \9\9\9\9\9end)\
 \9\9\9\9\9setHandle(handle)\
@@ -897,7 +901,7 @@ local function DragComponent(_param)\
 \9\9\9\9end\
 \9\9\9end,\
 \9\9\9InputEnded = function(rbx, input)\
-\9\9\9\9if input.UserInputType == Enum.UserInputType.MouseButton1 then\
+\9\9\9\9if isPointerPress(input) then\
 \9\9\9\9\9local _result = inputHandle\
 \9\9\9\9\9if _result ~= nil then\
 \9\9\9\9\9\9_result:Disconnect()\
@@ -908,6 +912,9 @@ local function DragComponent(_param)\
 \9\9\9end,\
 \9\9},\
 \9})\
+end\
+function isPointerPress(input)\
+\9return input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch\
 end\
 Drag = DragComponent\
 return {\
@@ -1498,7 +1505,8 @@ local function useMouseLocation(onChange)\
 \9local location, setLocation = useBinding(UserInputService:GetMouseLocation())\
 \9useEffect(function()\
 \9\9local handle = UserInputService.InputChanged:Connect(function(input)\
-\9\9\9if input.UserInputType == Enum.UserInputType.MouseMovement then\
+\9\9\9local kind = input.UserInputType\
+\9\9\9if kind == Enum.UserInputType.MouseMovement or kind == Enum.UserInputType.Touch then\
 \9\9\9\9setLocation(Vector2.new(input.Position.X, input.Position.Y))\
 \9\9\9\9local _result = onChange\
 \9\9\9\9if _result ~= nil then\
@@ -2031,6 +2039,19 @@ local main = TS.async(function()\
 \9end\
 end)\
 local function getUnitDirection()\
+\9if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then\
+\9\9local _humanoid = player.Character\
+\9\9if _humanoid ~= nil then\
+\9\9\9_humanoid = _humanoid:FindFirstChildOfClass(\"Humanoid\")\
+\9\9end\
+\9\9local humanoid = _humanoid\
+\9\9local camera = Workspace.CurrentCamera\
+\9\9if humanoid and camera and humanoid.MoveDirection.Magnitude > 0 then\
+\9\9\9local relative = camera.CFrame:VectorToObjectSpace(humanoid.MoveDirection)\
+\9\9\9return if relative.Magnitude > 0 then relative.Unit else Vector3.new()\
+\9\9end\
+\9\9return Vector3.new()\
+\9end\
 \9local sum = Vector3.new()\
 \9for _, v3 in pairs(moveDirection) do\
 \9\9sum = sum + v3\
@@ -3528,11 +3549,12 @@ local mount = TS.async(function()\
 \9root:render(React.createElement(ReflexProvider, {\
 \9\9producer = store,\
 \9}, React.createElement(App)))\
-\9local existing = container:GetChildren()[1]\
-\9if existing then\
-\9\9return existing\
+\9local app = container:GetChildren()[1]\
+\9if not app then\
+\9\9app = (container.ChildAdded:Wait())\
+\9\9task.wait()\
 \9end\
-\9return (container.ChildAdded:Wait())\
+\9return app\
 end)\
 local function render(app)\
 \9if IS_DEV then\
@@ -5822,6 +5844,64 @@ return {\
 \9default = default,\
 }\
 ", '@'.."Zaridium.views.Hint.Hint")) setfenv(fn, newEnv("Zaridium.views.Hint.Hint")) return fn() end)
+
+newModule("MobileToggle", "ModuleScript", "Zaridium.views.MobileToggle", "Zaridium.views", function () local fn = assert(loadstring("-- Compiled with roblox-ts v3.0.0\
+local TS = require(script.Parent.Parent.include.RuntimeLib)\
+local exports = {}\
+exports.default = TS.import(script, script, \"MobileToggle\").default\
+return exports\
+", '@'.."Zaridium.views.MobileToggle")) setfenv(fn, newEnv("Zaridium.views.MobileToggle")) return fn() end)
+
+newModule("MobileToggle", "ModuleScript", "Zaridium.views.MobileToggle.MobileToggle", "Zaridium.views.MobileToggle", function () local fn = assert(loadstring("-- Compiled with roblox-ts v3.0.0\
+local TS = require(script.Parent.Parent.Parent.include.RuntimeLib)\
+local React = TS.import(script, script.Parent.Parent.Parent, \"include\", \"node_modules\", \"@rbxts\", \"react\")\
+local UserInputService = TS.import(script, script.Parent.Parent.Parent, \"include\", \"node_modules\", \"@rbxts\", \"services\").UserInputService\
+local _rodux_hooks = TS.import(script, script.Parent.Parent.Parent, \"hooks\", \"common\", \"rodux-hooks\")\
+local useAppDispatch = _rodux_hooks.useAppDispatch\
+local useAppSelector = _rodux_hooks.useAppSelector\
+local useSpring = TS.import(script, script.Parent.Parent.Parent, \"hooks\", \"common\", \"use-spring\").useSpring\
+local hex = TS.import(script, script.Parent.Parent.Parent, \"utils\", \"color3\").hex\
+local px = TS.import(script, script.Parent.Parent.Parent, \"utils\", \"udim2\").px\
+local SIZE = 44\
+local IS_TOUCH = UserInputService.TouchEnabled\
+local function MobileToggle()\
+\9local dispatch = useAppDispatch()\
+\9local isOpen = useAppSelector(function(state)\
+\9\9return state.dashboard.isOpen\
+\9end)\
+\9local background = useSpring(if isOpen then hex(\"#2B2F3A\") else hex(\"#0F1117\"), {})\
+\9return React.createElement(\"textbutton\", {\
+\9\9Visible = IS_TOUCH,\
+\9\9Text = if isOpen then \"X\" else \"Z\",\
+\9\9Font = \"GothamBlack\",\
+\9\9TextSize = 20,\
+\9\9TextColor3 = hex(\"#FFFFFF\"),\
+\9\9AutoButtonColor = false,\
+\9\9AnchorPoint = Vector2.new(0.5, 0),\
+\9\9Position = UDim2.new(0.5, 0, 0, 8),\
+\9\9Size = px(SIZE, SIZE),\
+\9\9BackgroundColor3 = background,\
+\9\9BackgroundTransparency = 0.1,\
+\9\9BorderSizePixel = 0,\
+\9\9ZIndex = 100,\
+\9\9Event = {\
+\9\9\9Activated = function()\
+\9\9\9\9return dispatch.toggleDashboard()\
+\9\9\9end,\
+\9\9},\
+\9}, React.createElement(\"uicorner\", {\
+\9\9CornerRadius = UDim.new(0, 12),\
+\9}), React.createElement(\"uistroke\", {\
+\9\9Color = hex(\"#FFFFFF\"),\
+\9\9Transparency = 0.8,\
+\9\9Thickness = 1,\
+\9}))\
+end\
+local default = MobileToggle\
+return {\
+\9default = default,\
+}\
+", '@'.."Zaridium.views.MobileToggle.MobileToggle")) setfenv(fn, newEnv("Zaridium.views.MobileToggle.MobileToggle")) return fn() end)
 
 newModule("Navbar", "ModuleScript", "Zaridium.views.Navbar", "Zaridium.views", function () local fn = assert(loadstring("-- Compiled with roblox-ts v3.0.0\
 local TS = require(script.Parent.Parent.include.RuntimeLib)\

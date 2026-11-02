@@ -208,6 +208,7 @@ newModule("App", "ModuleScript", "Zaridium.App", "Zaridium", function () return 
 local TS = require(script.Parent.include.RuntimeLib)
 local React = TS.import(script, script.Parent, "include", "node_modules", "@rbxts", "react")
 local Dashboard = TS.import(script, script.Parent, "views", "Dashboard").default
+local MobileToggle = TS.import(script, script.Parent, "views", "MobileToggle").default
 local DISPLAY_ORDER = 7
 local function App()
 	return React.createElement("screengui", {
@@ -215,7 +216,7 @@ local function App()
 		ResetOnSpawn = false,
 		ZIndexBehavior = "Sibling",
 		DisplayOrder = DISPLAY_ORDER,
-	}, React.createElement(Dashboard))
+	}, React.createElement(Dashboard), React.createElement(MobileToggle))
 end
 local default = App
 return {
@@ -857,6 +858,7 @@ local function BrightSlider(_param)
 	}), children)
 end
 local default = BrightSlider
+local isPointerPress
 local function DragComponent(_param)
 	local onChange = _param.onChange
 	local onRelease = _param.onRelease
@@ -882,14 +884,16 @@ local function DragComponent(_param)
 		BackgroundTransparency = 1,
 		Event = {
 			InputBegan = function(rbx, input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if isPointerPress(input) then
 					local _result = inputHandle
 					if _result ~= nil then
 						_result:Disconnect()
 					end
-					local handle = UserInputService.InputChanged:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseMovement then
-							updateValue(getValueFromPosition(input.Position.X, rbx))
+					local dragInput = input
+					local handle = UserInputService.InputChanged:Connect(function(moved)
+						local follows = if dragInput.UserInputType == Enum.UserInputType.Touch then moved == dragInput else moved.UserInputType == Enum.UserInputType.MouseMovement
+						if follows then
+							updateValue(getValueFromPosition(moved.Position.X, rbx))
 						end
 					end)
 					setHandle(handle)
@@ -897,7 +901,7 @@ local function DragComponent(_param)
 				end
 			end,
 			InputEnded = function(rbx, input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if isPointerPress(input) then
 					local _result = inputHandle
 					if _result ~= nil then
 						_result:Disconnect()
@@ -908,6 +912,9 @@ local function DragComponent(_param)
 			end,
 		},
 	})
+end
+function isPointerPress(input)
+	return input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch
 end
 Drag = DragComponent
 return {
@@ -1498,7 +1505,8 @@ local function useMouseLocation(onChange)
 	local location, setLocation = useBinding(UserInputService:GetMouseLocation())
 	useEffect(function()
 		local handle = UserInputService.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement then
+			local kind = input.UserInputType
+			if kind == Enum.UserInputType.MouseMovement or kind == Enum.UserInputType.Touch then
 				setLocation(Vector2.new(input.Position.X, input.Position.Y))
 				local _result = onChange
 				if _result ~= nil then
@@ -2031,6 +2039,19 @@ local main = TS.async(function()
 	end
 end)
 local function getUnitDirection()
+	if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then
+		local _humanoid = player.Character
+		if _humanoid ~= nil then
+			_humanoid = _humanoid:FindFirstChildOfClass("Humanoid")
+		end
+		local humanoid = _humanoid
+		local camera = Workspace.CurrentCamera
+		if humanoid and camera and humanoid.MoveDirection.Magnitude > 0 then
+			local relative = camera.CFrame:VectorToObjectSpace(humanoid.MoveDirection)
+			return if relative.Magnitude > 0 then relative.Unit else Vector3.new()
+		end
+		return Vector3.new()
+	end
 	local sum = Vector3.new()
 	for _, v3 in pairs(moveDirection) do
 		sum = sum + v3
@@ -3528,11 +3549,12 @@ local mount = TS.async(function()
 	root:render(React.createElement(ReflexProvider, {
 		producer = store,
 	}, React.createElement(App)))
-	local existing = container:GetChildren()[1]
-	if existing then
-		return existing
+	local app = container:GetChildren()[1]
+	if not app then
+		app = (container.ChildAdded:Wait())
+		task.wait()
 	end
-	return (container.ChildAdded:Wait())
+	return app
 end)
 local function render(app)
 	if IS_DEV then
@@ -5822,6 +5844,64 @@ return {
 	default = default,
 }
  end, newEnv("Zaridium.views.Hint.Hint"))() end)
+
+newModule("MobileToggle", "ModuleScript", "Zaridium.views.MobileToggle", "Zaridium.views", function () return setfenv(function() -- Compiled with roblox-ts v3.0.0
+local TS = require(script.Parent.Parent.include.RuntimeLib)
+local exports = {}
+exports.default = TS.import(script, script, "MobileToggle").default
+return exports
+ end, newEnv("Zaridium.views.MobileToggle"))() end)
+
+newModule("MobileToggle", "ModuleScript", "Zaridium.views.MobileToggle.MobileToggle", "Zaridium.views.MobileToggle", function () return setfenv(function() -- Compiled with roblox-ts v3.0.0
+local TS = require(script.Parent.Parent.Parent.include.RuntimeLib)
+local React = TS.import(script, script.Parent.Parent.Parent, "include", "node_modules", "@rbxts", "react")
+local UserInputService = TS.import(script, script.Parent.Parent.Parent, "include", "node_modules", "@rbxts", "services").UserInputService
+local _rodux_hooks = TS.import(script, script.Parent.Parent.Parent, "hooks", "common", "rodux-hooks")
+local useAppDispatch = _rodux_hooks.useAppDispatch
+local useAppSelector = _rodux_hooks.useAppSelector
+local useSpring = TS.import(script, script.Parent.Parent.Parent, "hooks", "common", "use-spring").useSpring
+local hex = TS.import(script, script.Parent.Parent.Parent, "utils", "color3").hex
+local px = TS.import(script, script.Parent.Parent.Parent, "utils", "udim2").px
+local SIZE = 44
+local IS_TOUCH = UserInputService.TouchEnabled
+local function MobileToggle()
+	local dispatch = useAppDispatch()
+	local isOpen = useAppSelector(function(state)
+		return state.dashboard.isOpen
+	end)
+	local background = useSpring(if isOpen then hex("#2B2F3A") else hex("#0F1117"), {})
+	return React.createElement("textbutton", {
+		Visible = IS_TOUCH,
+		Text = if isOpen then "X" else "Z",
+		Font = "GothamBlack",
+		TextSize = 20,
+		TextColor3 = hex("#FFFFFF"),
+		AutoButtonColor = false,
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, 8),
+		Size = px(SIZE, SIZE),
+		BackgroundColor3 = background,
+		BackgroundTransparency = 0.1,
+		BorderSizePixel = 0,
+		ZIndex = 100,
+		Event = {
+			Activated = function()
+				return dispatch.toggleDashboard()
+			end,
+		},
+	}, React.createElement("uicorner", {
+		CornerRadius = UDim.new(0, 12),
+	}), React.createElement("uistroke", {
+		Color = hex("#FFFFFF"),
+		Transparency = 0.8,
+		Thickness = 1,
+	}))
+end
+local default = MobileToggle
+return {
+	default = default,
+}
+ end, newEnv("Zaridium.views.MobileToggle.MobileToggle"))() end)
 
 newModule("Navbar", "ModuleScript", "Zaridium.views.Navbar", "Zaridium.views", function () return setfenv(function() -- Compiled with roblox-ts v3.0.0
 local TS = require(script.Parent.Parent.include.RuntimeLib)

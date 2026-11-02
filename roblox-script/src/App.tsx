@@ -1,5 +1,6 @@
 import React from "@rbxts/react";
 import Dashboard from "./views/Dashboard";
+import MobileToggle from "./views/MobileToggle";
 
 // Above topbar, below prompts
 const DISPLAY_ORDER = 7;
@@ -8,6 +9,7 @@ function App() {
 	return (
 		<screengui IgnoreGuiInset ResetOnSpawn={false} ZIndexBehavior="Sibling" DisplayOrder={DISPLAY_ORDER}>
 			<Dashboard />
+			<MobileToggle />
 		</screengui>
 	);
 }

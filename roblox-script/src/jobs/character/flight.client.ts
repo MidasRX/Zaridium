@@ -80,6 +80,17 @@ async function main() {
 }
 
 function getUnitDirection() {
+	// Touch devices have no WASD: fly where the thumbstick points, relative to the camera.
+	if (UserInputService.TouchEnabled && !UserInputService.KeyboardEnabled) {
+		const humanoid = player.Character?.FindFirstChildOfClass("Humanoid");
+		const camera = Workspace.CurrentCamera;
+		if (humanoid && camera && humanoid.MoveDirection.Magnitude > 0) {
+			const relative = camera.CFrame.VectorToObjectSpace(humanoid.MoveDirection);
+			return relative.Magnitude > 0 ? relative.Unit : new Vector3();
+		}
+		return new Vector3();
+	}
+
 	let sum = new Vector3();
 	for (const [, v3] of pairs(moveDirection)) {
 		sum = sum.add(v3);
