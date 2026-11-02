@@ -29,4 +29,4 @@ function Border({ size = 1, radius = 0, color = hex("#ffffff"), transparency = 0
 	);
 }
 
-export default (Border);
+export default Border;

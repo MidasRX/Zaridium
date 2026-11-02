@@ -2,19 +2,32 @@ name: ESLint
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  ESLint:
+  eslint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: roblox-script
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
-      - name: Install NPM dependencies
-        uses: bahmutov/npm-install@v1.7.4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: roblox-script/package-lock.json
+
+      - run: npm ci
+
+      - name: Compile roblox-ts
+        run: npm run compile
 
       - name: Run ESLint
-        run: |
-          npx eslint src/
+        run: npm run lint

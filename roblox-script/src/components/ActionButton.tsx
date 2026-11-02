@@ -31,8 +31,8 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 		active
 			? accent
 			: hovered
-			? theme.button.backgroundHovered ?? theme.button.background.Lerp(accent, 0.1)
-			: theme.button.background,
+				? (theme.button.backgroundHovered ?? theme.button.background.Lerp(accent, 0.1))
+				: theme.button.background,
 		{},
 	);
 	const foreground = useSpring(
@@ -73,8 +73,8 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 					active
 						? 0
 						: hovered
-						? theme.button.foregroundTransparency - 0.25
-						: theme.button.foregroundTransparency,
+							? theme.button.foregroundTransparency - 0.25
+							: theme.button.foregroundTransparency,
 					{},
 				)}
 				Size={px(36, 36)}
@@ -85,4 +85,4 @@ function ActionButton({ action, hint, theme, image, position, canDeactivate }: P
 	);
 }
 
-export default (ActionButton);
+export default ActionButton;

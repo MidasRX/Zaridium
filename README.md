@@ -8,11 +8,11 @@
 
 [![Stars](https://img.shields.io/github/stars/MidasRX/Zaridium?style=for-the-badge&color=6cc3ff&labelColor=08080d&logo=github)](https://github.com/MidasRX/Zaridium/stargazers)
 [![Issues](https://img.shields.io/github/issues/MidasRX/Zaridium?style=for-the-badge&color=e664b4&labelColor=08080d&logo=github)](https://github.com/MidasRX/Zaridium/issues)
-[![License](https://img.shields.io/github/license/MidasRX/Zaridium?style=for-the-badge&color=ffd86b&labelColor=08080d)](./LICENSE)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-ffd86b?style=for-the-badge&labelColor=08080d)](./LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/MidasRX/Zaridium?style=for-the-badge&color=8be9fd&labelColor=08080d&logo=git&logoColor=white)](https://github.com/MidasRX/Zaridium/commits/main)
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-roblox--ts-3178c6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=08080d)](https://roblox-ts.com)
-[![Roact](https://img.shields.io/badge/UI-Roact-ff4757?style=for-the-badge&logo=react&logoColor=white&labelColor=08080d)](https://roblox.github.io/roact/)
+[![React](https://img.shields.io/badge/UI-React-61dafb?style=for-the-badge&logo=react&logoColor=white&labelColor=08080d)](https://github.com/jsdotlua/react-lua)
 [![Rojo](https://img.shields.io/badge/Build-Rojo-d35400?style=for-the-badge&labelColor=08080d)](https://rojo.space)
 
 <br/>
@@ -92,9 +92,9 @@ Hub for general-purpose tools.
 ### 📰 Scripts
 Curated launcher of community gems.
 
-- 📚 [Solaris](https://solarishub.dev)
+- 📚 ~~[Solaris](https://solarishub.dev)~~ (disabled: domain is parked for sale)
 - 📚 [V.G Hub](https://github.com/1201for)
-- 📚 [EvoV2](https://projectevo.xyz)
+- 📚 ~~[EvoV2](https://projectevo.xyz)~~ (disabled: loader unreachable)
 - 🛡️ [CMD-X](https://github.com/CMD-X)
 - 🛡️ [Infinite Yield](https://github.com/EdgeIY)
 - 🔍 [Dex Explorer](https://github.com/LorekeeperZinnia)
@@ -155,7 +155,7 @@ Zaridium/
 
 ## 💻 Build it yourself
 
-> Requires **Node 16+**, **[Foreman](https://github.com/Roblox/foreman)** (or Aftman), and an executor for testing.
+> Requires **Node 20.19+**, **[Foreman](https://github.com/Roblox/foreman)** (or Rokit/Aftman), and an executor for testing.
 
 ```bash
 git clone https://github.com/MidasRX/Zaridium.git
@@ -175,7 +175,7 @@ npm run bundle
 | ------------------ | --------------------------------------------- |
 | `npm run watch`    | live recompile on save                        |
 | `npm run serve`    | Rojo serve for Studio sync                    |
-| `npm run build`    | build `Orca.rbxm` model                       |
+| `npm run build`    | build `Zaridium.rbxm` model                   |
 | `npm run bundle`   | compile + bundle to `public/dev.lua`          |
 | `npm run bundle:min` | bundle minified                             |
 
@@ -184,14 +184,14 @@ npm run bundle
 ## 🤝 Credits
 
 - 🐋 **[richie0866](https://github.com/richie0866)** — original creator of **Orca**, the UI engine and architecture this fork stands on. All respect.
-- 💜 The **roblox-ts**, **Roact**, **Rodux** and **Rojo** teams.
+- 💜 The **roblox-ts**, **React-Lua**, **Reflex** and **Rojo** teams.
 - 🌟 Everyone who tests, reports bugs, or yells at me in DMs.
 
 <br/>
 
 ## 📜 License
 
-Released under the **MIT License** — see [LICENSE](./LICENSE). Do whatever you want, just keep the credit line.
+Released under **[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)**: free to share and adapt for **non-commercial** use, with attribution. The original [Orca](https://github.com/richie0866/orca) code stays under its MIT License (notice kept in [LICENSE](./LICENSE)).
 
 <br/>
 

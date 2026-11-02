@@ -105,4 +105,4 @@ function Shortcuts() {
 	);
 }
 
-export default (Shortcuts);
+export default Shortcuts;

@@ -49,4 +49,4 @@ function Themes() {
 	);
 }
 
-export default (Themes);
+export default Themes;

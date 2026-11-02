@@ -58,4 +58,4 @@ function StatusLabel({ offset, index, units, getValue }: Props) {
 	);
 }
 
-export default (StatusLabel);
+export default StatusLabel;

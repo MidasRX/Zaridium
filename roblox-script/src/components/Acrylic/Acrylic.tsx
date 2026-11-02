@@ -31,7 +31,7 @@ function Acrylic({ radius, distance }: Props) {
 	return <>{isAcrylicBlurEnabled && <AcrylicBlur radius={radius} distance={distance} />}</>;
 }
 
-export default (Acrylic);
+export default Acrylic;
 
 /**
  * Creates a glass object close to the camera that, when paired with a
@@ -169,4 +169,4 @@ function AcrylicBlurComponent({ radius = 0, distance = 0.001 }: Props) {
 	);
 }
 
-const AcrylicBlur = (AcrylicBlurComponent);
+const AcrylicBlur = AcrylicBlurComponent;

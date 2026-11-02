@@ -19,4 +19,4 @@ function Options() {
 	);
 }
 
-export default (Options);
+export default Options;

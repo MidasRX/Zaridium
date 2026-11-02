@@ -39,4 +39,4 @@ function Hint() {
 	);
 }
 
-export default (Hint);
+export default Hint;

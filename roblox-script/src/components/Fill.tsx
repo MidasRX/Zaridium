@@ -35,4 +35,4 @@ function Fill({ color = hex("#ffffff"), gradient, transparency = 0, radius = 0, 
 	);
 }
 
-export default (Fill);
+export default Fill;

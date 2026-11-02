@@ -32,4 +32,4 @@ function Avatar() {
 	);
 }
 
-export default (Avatar);
+export default Avatar;

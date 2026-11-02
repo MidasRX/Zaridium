@@ -38,16 +38,16 @@ function ThemeItem({ theme, index }: Props) {
 		isSelected
 			? buttonTheme.accent
 			: hovered
-			? buttonTheme.backgroundHovered ?? buttonTheme.background.Lerp(buttonTheme.accent, 0.1)
-			: buttonTheme.background,
+				? (buttonTheme.backgroundHovered ?? buttonTheme.background.Lerp(buttonTheme.accent, 0.1))
+				: buttonTheme.background,
 		{},
 	);
 	const dropshadow = useSpring(
 		isSelected
 			? buttonTheme.accent
 			: hovered
-			? buttonTheme.backgroundHovered ?? buttonTheme.dropshadow.Lerp(buttonTheme.accent, 0.5)
-			: buttonTheme.dropshadow,
+				? (buttonTheme.backgroundHovered ?? buttonTheme.dropshadow.Lerp(buttonTheme.accent, 0.5))
+				: buttonTheme.dropshadow,
 		{},
 	);
 	const foreground = useSpring(
@@ -76,8 +76,8 @@ function ThemeItem({ theme, index }: Props) {
 					isSelected
 						? buttonTheme.glowTransparency
 						: hovered
-						? lerp(buttonTheme.dropshadowTransparency, buttonTheme.glowTransparency, 0.5)
-						: buttonTheme.dropshadowTransparency,
+							? lerp(buttonTheme.dropshadowTransparency, buttonTheme.glowTransparency, 0.5)
+							: buttonTheme.dropshadowTransparency,
 					{},
 				)}
 			/>
@@ -97,8 +97,8 @@ function ThemeItem({ theme, index }: Props) {
 					isSelected
 						? 0
 						: hovered
-						? buttonTheme.foregroundTransparency / 2
-						: buttonTheme.foregroundTransparency,
+							? buttonTheme.foregroundTransparency / 2
+							: buttonTheme.foregroundTransparency,
 					{},
 				)}
 				BackgroundTransparency={1}
@@ -128,7 +128,7 @@ function ThemeItem({ theme, index }: Props) {
 	);
 }
 
-export default (ThemeItem);
+export default ThemeItem;
 
 interface ThemePreviewProps {
 	color: React.Binding<Color3>;

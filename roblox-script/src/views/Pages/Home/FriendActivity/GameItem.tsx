@@ -71,4 +71,4 @@ function GameItem({ gameActivity, index }: Props) {
 	);
 }
 
-export default (GameItem);
+export default GameItem;

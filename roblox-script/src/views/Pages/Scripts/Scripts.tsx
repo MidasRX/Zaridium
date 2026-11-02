@@ -18,12 +18,16 @@ async function runScriptFromUrl(url: string, src: string) {
 	}
 }
 
+function unavailable(name: string) {
+	warn(`${name} is no longer available: its loader URL is dead or its domain is no longer controlled by the author.`);
+}
+
 function Scripts() {
 	return (
 		<Canvas position={scale(0, 1)} anchor={new Vector2(0, 1)}>
 			{/* Solaris Hub */}
 			<ScriptCard
-				onActivate={() => runScriptFromUrl("https://solarishub.dev/script.lua", "Solaris")}
+				onActivate={() => unavailable("Solaris")}
 				index={4}
 				backgroundImage="rbxassetid://8992292705"
 				backgroundImageSize={new Vector2(1023, 682)}
@@ -47,7 +51,10 @@ function Scripts() {
 			{/* V.G Hub */}
 			<ScriptCard
 				onActivate={() =>
-					runScriptFromUrl("https://raw.githubusercontent.com/1201for/V.G-Hub/main/V.Ghub", "V.G Hub")
+					runScriptFromUrl(
+						"https://raw.githubusercontent.com/1201for/V.G-Hub/f6c063f4c39ff8800debed806ae5da7e0d8a8451/V.Ghub",
+						"V.G Hub",
+					)
 				}
 				index={1}
 				backgroundImage="rbxassetid://8992292381"
@@ -72,7 +79,10 @@ function Scripts() {
 			{/* CMD-X */}
 			<ScriptCard
 				onActivate={() =>
-					runScriptFromUrl("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", "CMD-X")
+					runScriptFromUrl(
+						"https://raw.githubusercontent.com/CMD-X/CMD-X/2d71c7d39e576b2a91c5c7e0607450d37541d93f/Source",
+						"CMD-X",
+					)
 				}
 				index={5}
 				backgroundImage="rbxassetid://8992291779"
@@ -119,7 +129,12 @@ function Scripts() {
 
 			{/* Dex Explorer */}
 			<ScriptCard
-				onActivate={() => runScriptFromUrl("https://pastebin.com/raw/mMbsHWiQ", "Dex Explorer")}
+				onActivate={() =>
+					runScriptFromUrl(
+						"https://raw.githubusercontent.com/infyiff/backup/4c95b64acc574fd56032e93b9404ef8ed074908e/dex.lua",
+						"Dex Explorer",
+					)
+				}
 				index={1}
 				backgroundImage="rbxassetid://8992290931"
 				backgroundImageSize={new Vector2(818, 1023)}
@@ -144,7 +159,7 @@ function Scripts() {
 			<ScriptCard
 				onActivate={() =>
 					runScriptFromUrl(
-						"https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua",
+						"https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/81795d9f056686e5c728f509eff4c90a1969bf96/UnnamedESP.lua",
 						"Unnamed ESP",
 					)
 				}
@@ -170,7 +185,7 @@ function Scripts() {
 
 			{/* EvoV2 */}
 			<ScriptCard
-				onActivate={() => runScriptFromUrl("https://projectevo.xyz/script/loader.lua", "EvoV2")}
+				onActivate={() => unavailable("EvoV2")}
 				index={2}
 				backgroundImage="rbxassetid://8992290314"
 				backgroundImageSize={new Vector2(682, 1023)}
@@ -198,4 +213,4 @@ function Scripts() {
 	);
 }
 
-export default (Scripts);
+export default Scripts;

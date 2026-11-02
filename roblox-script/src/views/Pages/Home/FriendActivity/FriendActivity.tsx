@@ -65,4 +65,4 @@ function FriendActivity() {
 	);
 }
 
-export default (FriendActivity);
+export default FriendActivity;

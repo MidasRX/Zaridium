@@ -4,7 +4,7 @@ import { Reducer, useEffect, useReducer } from "@rbxts/react";
 
 type PromiseState = "pending" | "rejected" | "resolved";
 
-interface State<T = any> {
+interface State<T = unknown> {
 	result?: T;
 	err?: unknown;
 	state: PromiseState;
@@ -64,7 +64,10 @@ export function usePromise<T>(
 	promise: Promise<T> | (() => Promise<T>),
 	deps: unknown[] = [],
 ): [result: T | undefined, err: unknown | undefined, state: PromiseState] {
-	const [{ err, result, state }, dispatch] = useReducer(reducer as Reducer<State<T>, Action>, defaultState);
+	const [{ err, result, state }, dispatch] = useReducer(
+		reducer as Reducer<State<T>, Action>,
+		defaultState as State<T>,
+	);
 
 	useEffect(() => {
 		promise = resolvePromise<T>(promise);

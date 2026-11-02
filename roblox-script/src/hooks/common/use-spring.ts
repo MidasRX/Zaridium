@@ -18,4 +18,3 @@ export function useSpring<T extends Animatable>(value: T, options?: SpringOption
 	motor.spring(value as never, options);
 	return getBinding(motor);
 }
-

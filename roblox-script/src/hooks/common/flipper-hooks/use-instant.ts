@@ -8,4 +8,3 @@ export function useInstant(targetValue: number): Binding<number> {
 	motor.setPosition(targetValue);
 	return getBinding(motor);
 }
-

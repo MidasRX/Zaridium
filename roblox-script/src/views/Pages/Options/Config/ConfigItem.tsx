@@ -34,16 +34,16 @@ function ConfigItem({ action, description, hint, index }: Props) {
 		active
 			? buttonTheme.accent
 			: hovered
-			? buttonTheme.backgroundHovered ?? buttonTheme.background.Lerp(buttonTheme.accent, 0.1)
-			: buttonTheme.background,
+				? (buttonTheme.backgroundHovered ?? buttonTheme.background.Lerp(buttonTheme.accent, 0.1))
+				: buttonTheme.background,
 		{},
 	);
 	const dropshadow = useSpring(
 		active
 			? buttonTheme.accent
 			: hovered
-			? buttonTheme.backgroundHovered ?? buttonTheme.dropshadow.Lerp(buttonTheme.accent, 0.5)
-			: buttonTheme.dropshadow,
+				? (buttonTheme.backgroundHovered ?? buttonTheme.dropshadow.Lerp(buttonTheme.accent, 0.5))
+				: buttonTheme.dropshadow,
 		{},
 	);
 	const foreground = useSpring(
@@ -63,8 +63,8 @@ function ConfigItem({ action, description, hint, index }: Props) {
 					active
 						? buttonTheme.glowTransparency
 						: hovered
-						? lerp(buttonTheme.dropshadowTransparency, buttonTheme.glowTransparency, 0.5)
-						: buttonTheme.dropshadowTransparency,
+							? lerp(buttonTheme.dropshadowTransparency, buttonTheme.glowTransparency, 0.5)
+							: buttonTheme.dropshadowTransparency,
 					{},
 				)}
 			/>
@@ -114,4 +114,4 @@ function ConfigItem({ action, description, hint, index }: Props) {
 	);
 }
 
-export default (ConfigItem);
+export default ConfigItem;

@@ -98,4 +98,4 @@ function HeaderCenter(props: { header: string; scaleFactor: React.Binding<number
 	);
 }
 
-export default (Content);
+export default Content;

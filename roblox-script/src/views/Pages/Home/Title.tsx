@@ -55,7 +55,7 @@ function Title() {
 	);
 }
 
-export default (Title);
+export default Title;
 
 // Title card info labels
 interface LabelProps {
@@ -90,4 +90,4 @@ function LabelComponent(props: LabelProps) {
 	);
 }
 
-const Label = (LabelComponent);
+const Label = LabelComponent;

@@ -96,4 +96,4 @@ function FriendItem({ friend, index }: Props) {
 	);
 }
 
-export default (FriendItem);
+export default FriendItem;

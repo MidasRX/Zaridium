@@ -29,16 +29,7 @@ interface Props extends React.PropsWithChildren {
 	maintainCornerRadius?: boolean;
 }
 
-function Glow({
-	radius,
-	size,
-	position,
-	color,
-	gradient,
-	transparency = 0,
-	maintainCornerRadius,
-	children,
-}: Props) {
+function Glow({ radius, size, position, color, gradient, transparency = 0, maintainCornerRadius, children }: Props) {
 	const [absoluteSize, setAbsoluteSize] = useBinding(new Vector2());
 	const scaleFactor = useScale();
 	const centerOffset = RADIUS_TO_CENTER_OFFSET[radius];
@@ -50,10 +41,10 @@ function Glow({
 				absoluteSize,
 				scaleFactor,
 				size: asBinding(size),
-		  }).map(({ absoluteSize, size, scaleFactor }) => {
+			}).map(({ absoluteSize, size, scaleFactor }) => {
 				const currentSize = applyUDim2(absoluteSize, size, scaleFactor);
 				return px(math.max(currentSize.X, centerOffset * 2), math.max(currentSize.Y, centerOffset * 2));
-		  })
+			})
 		: size;
 
 	// As the glow size reaches the minimum size, decrease the transparency.
@@ -65,7 +56,7 @@ function Glow({
 				scaleFactor,
 				size: asBinding(size),
 				transparency: asBinding(transparency),
-		  }).map(({ absoluteSize, size, transparency, scaleFactor }) => {
+			}).map(({ absoluteSize, size, transparency, scaleFactor }) => {
 				const minSize = centerOffset * 2;
 				const currentSize = applyUDim2(
 					absoluteSize,
@@ -77,7 +68,7 @@ function Glow({
 				} else {
 					return transparency;
 				}
-		  })
+			})
 		: transparency;
 
 	return (
@@ -109,4 +100,4 @@ function Glow({
 	);
 }
 
-export default (Glow);
+export default Glow;

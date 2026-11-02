@@ -70,4 +70,4 @@ function BrightButton({
 	);
 }
 
-export default (BrightButton);
+export default BrightButton;

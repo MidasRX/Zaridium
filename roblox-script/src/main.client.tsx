@@ -30,17 +30,12 @@ async function mount() {
  * TODO: Roact portals are a better way to do this?
  */
 function render(app: ScreenGui) {
-	const protect = syn ? syn.protect_gui : protect_gui;
-	if (protect) {
-		protect(app);
-	}
-
 	if (IS_DEV) {
 		app.Parent = Players.LocalPlayer.WaitForChild("PlayerGui");
 	} else if (gethui) {
 		app.Parent = gethui();
 	} else {
-		app.Parent = game.GetService("CoreGui");
+		app.Parent = (game as unknown as { GetService(name: string): Instance }).GetService("CoreGui");
 	}
 }
 

@@ -51,4 +51,4 @@ function Config() {
 	);
 }
 
-export default (Config);
+export default Config;

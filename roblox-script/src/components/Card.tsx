@@ -63,4 +63,4 @@ function Card({ index, page, theme, size, position, children }: Props) {
 	);
 }
 
-export default (Card);
+export default Card;

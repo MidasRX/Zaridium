@@ -21,4 +21,3 @@ export function getBinding<T extends Animatable>(motion: Motion<T>): Binding<T> 
 	motion[AssignedBinding as never] = binding as never;
 	return binding;
 }
-

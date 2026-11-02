@@ -88,7 +88,7 @@ function Navbar() {
 	);
 }
 
-export default (Navbar);
+export default Navbar;
 
 function Underglow(props: {
 	sequenceColor: React.Binding<Color3>;

@@ -13,4 +13,3 @@ export function useMotor<T extends Animatable>(initialValue: T): Motion<T> {
 	}
 	return ref.current;
 }
-

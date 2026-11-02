@@ -1,17 +1,19 @@
 import { HttpService } from "@rbxts/services";
 import { IS_DEV } from "constants";
 
-export async function request(requestOptions: RequestAsyncRequest): Promise<RequestAsyncResponse> {
+const executorRequest = request;
+
+async function sendRequest(requestOptions: RequestAsyncRequest): Promise<RequestAsyncResponse> {
 	if (IS_DEV) {
 		return HttpService.RequestAsync(requestOptions);
-	} else {
-		const fn = syn ? syn.request : request;
-		if (!fn) {
-			throw "request/syn.request is not available";
-		}
-		return fn(requestOptions);
 	}
+	if (!executorRequest) {
+		throw "request is not available";
+	}
+	return executorRequest(requestOptions);
 }
+
+export { sendRequest as request };
 
 export async function get(url: string, requestType?: Enum.HttpRequestType): Promise<string> {
 	return game.HttpGetAsync(url, requestType);

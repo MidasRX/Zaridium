@@ -35,21 +35,24 @@ async function main() {
 
 	let timeout: Timeout | undefined;
 
-	store.subscribe((state) => state, (newState) => {
-		timeout?.clear();
-		timeout = undefined;
+	store.subscribe(
+		(state) => state,
+		(newState) => {
+			timeout?.clear();
+			timeout = undefined;
 
-		if (!newState.dashboard.isOpen) {
-			timeout = setTimeout(disableAcrylic, 500);
-			return;
-		}
+			if (!newState.dashboard.isOpen) {
+				timeout = setTimeout(disableAcrylic, 500);
+				return;
+			}
 
-		if (newState.options.config.acrylicBlur) {
-			enableAcrylic();
-		} else {
-			disableAcrylic();
-		}
-	});
+			if (newState.options.config.acrylicBlur) {
+				enableAcrylic();
+			} else {
+				disableAcrylic();
+			}
+		},
+	);
 }
 
 main().catch((err) => {

@@ -5,17 +5,20 @@ export async function getSelectedPlayer(onChange?: (player: Player | undefined) 
 	const store = await getStore();
 	const playerSelected = { current: undefined as Player | undefined };
 
-	store.subscribe((state) => state, (newState) => {
-		const name = newState.dashboard.apps.playerSelected;
+	store.subscribe(
+		(state) => state,
+		(newState) => {
+			const name = newState.dashboard.apps.playerSelected;
 
-		if (playerSelected.current?.Name !== name) {
-			playerSelected.current = name !== undefined ? (Players.FindFirstChild(name) as Player) : undefined;
+			if (playerSelected.current?.Name !== name) {
+				playerSelected.current = name !== undefined ? (Players.FindFirstChild(name) as Player) : undefined;
 
-			if (onChange) {
-				task.defer(onChange, playerSelected.current);
+				if (onChange) {
+					task.defer(onChange, playerSelected.current);
+				}
 			}
-		}
-	});
+		},
+	);
 
 	return playerSelected;
 }

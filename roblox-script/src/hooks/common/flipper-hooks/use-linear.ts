@@ -9,4 +9,3 @@ export function useLinear(targetValue: number, options?: TweenOptions<number>): 
 	motor.tween(targetValue, { easing: "linear", ...options });
 	return getBinding(motor);
 }
-

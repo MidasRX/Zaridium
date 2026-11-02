@@ -29,11 +29,7 @@ export const jobsSlice = createProducer(initialState, {
 		},
 	}),
 
-	setJobValue: <K extends keyof JobsState>(
-		state: JobsState,
-		jobName: K,
-		value: InferJobValue<JobsState[K]>,
-	) => ({
+	setJobValue: <K extends keyof JobsState>(state: JobsState, jobName: K, value: InferJobValue<JobsState[K]>) => ({
 		...state,
 		[jobName]: {
 			...state[jobName],

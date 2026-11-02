@@ -11,4 +11,3 @@ export function useSpring(targetValue: number, options?: SpringOptions<number>):
 	motor.spring(targetValue, options);
 	return getBinding(motor);
 }
-

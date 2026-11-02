@@ -3,42 +3,54 @@ name: Publish Release
 on:
   workflow_dispatch:
   release:
-    types: [ published ]
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
-  bundle-release:
+  bundle:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: roblox-script
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
-          repository: ${{ github.event.repository.full_name }}
-          ref: "master"
+          ref: main
 
       - name: Install Foreman
-        uses: rojo-rbx/setup-foreman@v1.0.1
+        uses: Roblox/setup-foreman@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: roblox-script
 
-      - name: Install NPM dependencies
-        uses: bahmutov/npm-install@v1.7.4
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: roblox-script/package-lock.json
+
+      - run: npm ci
+
+      - name: Resolve version
+        run: echo "VERSION=${{ github.event.release.tag_name }}" >> "$GITHUB_ENV"
 
       - name: Compile roblox-ts
-        run: |
-          npm run compile
+        run: npm run compile
 
       - name: Build model
-        run: |
-          npm run build
+        run: npm run build
 
       - name: Bundle modules
         run: |
-          remodel run ci/bundle.lua public/latest.lua ${{ github.event.release.tag_name }} minify
-          remodel run ci/bundle.lua public/latest.debug.lua ${{ github.event.release.tag_name }}-dbg debug
+          remodel run ci/bundle.lua public/latest.lua "$VERSION" minify
+          remodel run ci/bundle.lua public/latest.debug.lua "$VERSION-dbg" debug
 
-      - name: Commit latest
-        uses: EndBug/add-and-commit@v8.0.2
+      - name: Commit bundles
+        uses: EndBug/add-and-commit@v11
         with:
-          default_author: "github_actions"
+          default_author: github_actions
+          cwd: roblox-script
           add: "['public/latest.lua', 'public/latest.debug.lua']"
-          message: 🐋 Release ${{ github.event.release.tag_name }}
+          message: "Release ${{ env.VERSION }}"

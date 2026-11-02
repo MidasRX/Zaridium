@@ -1,8 +1,13 @@
 {
 	"name": "zaridium",
+	"private": true,
+	"engines": {
+		"node": ">=20.19"
+	},
 	"scripts": {
-		"compile": "npx rbxtsc --verbose --type=model",
-		"watch": "npx rbxtsc -w",
+		"compile": "rbxtsc --verbose --type=model",
+		"watch": "rbxtsc -w",
+		"lint": "eslint src/",
 		"build": "rojo build default.project.json --output \"Zaridium.rbxm\"",
 		"serve": "rojo serve place.project.json",
 		"bundle": "npm run build && remodel run ci/bundle.lua public/dev.lua dev verbose",
@@ -10,25 +15,27 @@
 		"bundle:min": "npm run build && remodel run ci/bundle.lua public/dev.lua dev_min minify verbose"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@rbxts/compiler-types": "^3.0.0-types.0",
-		"@rbxts/exploit-types": "github:richie0866/exploit-types",
-		"@rbxts/types": "^1.0.918",
-		"@typescript-eslint/eslint-plugin": "^7.18.0",
-		"@typescript-eslint/parser": "^7.18.0",
-		"eslint": "^8.57.1",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-prettier": "^5.2.1",
-		"eslint-plugin-roblox-ts": "^0.0.36",
+		"@rbxts/types": "^1.0.960",
+		"eslint": "^10.14.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.7",
+		"eslint-plugin-roblox-ts": "^1.4.1",
 		"luamin": "^1.0.4",
-		"prettier": "^3.3.3",
+		"prettier": "^3.9.10",
 		"roblox-ts": "^3.0.0",
-		"typescript": "5.5.3"
+		"typescript": "5.5.3",
+		"typescript-eslint": "^8.72.1"
+	},
+	"overrides": {
+		"minimatch": "^11.0.3"
 	},
 	"dependencies": {
 		"@rbxts/make": "^1.0.6",
-		"@rbxts/react": "^17.3.7-ts.1",
+		"@rbxts/react": "^17.3.13-ts.1",
 		"@rbxts/react-reflex": "^0.3.7",
-		"@rbxts/react-roblox": "^17.3.7-ts.1",
+		"@rbxts/react-roblox": "^17.3.13-ts.1",
 		"@rbxts/reflex": "^4.3.1",
 		"@rbxts/ripple": "^0.10.2",
 		"@rbxts/services": "^1.6.0"

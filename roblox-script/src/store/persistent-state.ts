@@ -3,12 +3,12 @@ import { getStore } from "jobs/helpers/job-store";
 import { RootState } from "store/store";
 import { setInterval } from "utils/timeout";
 
-if (makefolder && !isfolder("_orca")) {
+if (makefolder && isfolder && !isfolder("_orca")) {
 	makefolder("_orca");
 }
 
 function read(file: string) {
-	if (readfile) {
+	if (readfile && isfile) {
 		return isfile(file) ? readfile(file) : undefined;
 	} else {
 		print(`READ   ${file}`);

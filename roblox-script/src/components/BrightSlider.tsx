@@ -93,7 +93,7 @@ function BrightSlider({
 	);
 }
 
-export default (BrightSlider);
+export default BrightSlider;
 
 function DragComponent({
 	onChange,
@@ -151,4 +151,4 @@ function DragComponent({
 	);
 }
 
-const Drag = (DragComponent);
+const Drag = DragComponent;

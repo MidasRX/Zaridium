@@ -145,4 +145,4 @@ function ScriptCard({
 	);
 }
 
-export default (ScriptCard);
+export default ScriptCard;

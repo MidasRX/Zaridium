@@ -46,4 +46,4 @@ function NavbarTab({ page }: Props) {
 	);
 }
 
-export default (NavbarTab);
+export default NavbarTab;

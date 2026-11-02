@@ -96,7 +96,7 @@ function Selection() {
 	);
 }
 
-export default (Selection);
+export default Selection;
 
 interface PlayerEntryProps {
 	name: string;
@@ -128,16 +128,16 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 		isSelected
 			? theme.accent
 			: hovered
-			? theme.backgroundHovered ?? theme.background.Lerp(theme.accent, 0.1)
-			: theme.background,
+				? (theme.backgroundHovered ?? theme.background.Lerp(theme.accent, 0.1))
+				: theme.background,
 		{},
 	);
 	const dropshadow = useSpring(
 		isSelected
 			? theme.accent
 			: hovered
-			? theme.backgroundHovered ?? theme.dropshadow.Lerp(theme.accent, 0.5)
-			: theme.dropshadow,
+				? (theme.backgroundHovered ?? theme.dropshadow.Lerp(theme.accent, 0.5))
+				: theme.dropshadow,
 		{},
 	);
 	const foreground = useSpring(isSelected && theme.foregroundAccent ? theme.foregroundAccent : theme.foreground, {});
@@ -163,8 +163,8 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 					isSelected
 						? theme.glowTransparency
 						: hovered
-						? lerp(theme.dropshadowTransparency, theme.glowTransparency, 0.5)
-						: theme.dropshadowTransparency,
+							? lerp(theme.dropshadowTransparency, theme.glowTransparency, 0.5)
+							: theme.dropshadowTransparency,
 					{},
 				)}
 			/>
@@ -227,4 +227,4 @@ function PlayerEntryComponent({ name, userId, displayName, index }: PlayerEntryP
 	);
 }
 
-const PlayerEntry = (PlayerEntryComponent);
+const PlayerEntry = PlayerEntryComponent;

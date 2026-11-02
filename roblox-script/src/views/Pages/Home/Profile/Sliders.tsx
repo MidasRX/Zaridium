@@ -3,16 +3,11 @@ import { useBinding, useState } from "@rbxts/react";
 import BrightButton from "components/BrightButton";
 import BrightSlider from "components/BrightSlider";
 import Canvas from "components/Canvas";
-import { SpringOptions } from "hooks/common/flipper-hooks";
 import { useAppDispatch, useAppSelector } from "hooks/common/rodux-hooks";
 import { useSpring } from "hooks/common/use-spring";
 import { useTheme } from "hooks/use-theme";
 import { JobsWithValue } from "store/models/jobs.model";
 import { px, scale } from "utils/udim2";
-
-const SPRING_OPTIONS: SpringOptions = {
-	frequency: 5,
-};
 
 function Sliders() {
 	return (
@@ -72,8 +67,8 @@ function SliderComponent(props: {
 		job.active
 			? accent
 			: hovered
-			? theme.button.backgroundHovered ?? theme.button.background.Lerp(accent, 0.1)
-			: theme.button.background,
+				? (theme.button.backgroundHovered ?? theme.button.background.Lerp(accent, 0.1))
+				: theme.button.background,
 		{},
 	);
 	const buttonForeground = useSpring(
@@ -142,8 +137,8 @@ function SliderComponent(props: {
 						job.active
 							? 0
 							: hovered
-							? theme.button.foregroundTransparency - 0.25
-							: theme.button.foregroundTransparency,
+								? theme.button.foregroundTransparency - 0.25
+								: theme.button.foregroundTransparency,
 						{},
 					)}
 					Size={scale(1, 1)}
@@ -154,4 +149,4 @@ function SliderComponent(props: {
 	);
 }
 
-const Slider = (SliderComponent);
+const Slider = SliderComponent;
