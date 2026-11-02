@@ -44,7 +44,7 @@ jobs:
 
       - name: Bundle modules
         run: |
-          remodel run ci/bundle.lua public/latest.lua "$VERSION" minify
+          remodel run ci/bundle.lua public/latest.lua "$VERSION"
           remodel run ci/bundle.lua public/latest.debug.lua "$VERSION-dbg" debug
 
       - name: Commit bundles

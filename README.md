@@ -19,22 +19,39 @@
 
 <br/>
 
-## What is in this repository
+## Quick start
 
-| | **[Zaridium UI](./ui)** | **[Zaridium Hub](./roblox-script)** |
-| --- | --- | --- |
-| **What** | A multi-use UI library you build your own scripts on | A ready-made script hub with a dashboard and tools |
-| **Look** | Material 3: rounded shapes, tonal surfaces, ripples, Google Sans Flex, Material Symbols | Glassy card dashboard with themes and acrylic blur |
-| **Language** | Luau, a single bundled file, no dependencies | TypeScript (roblox-ts) with React and Reflex |
-| **Use it for** | Your own hub, tools and settings menus | Running it as is |
-| **Docs** | [ui/AGENTS.md](./ui/AGENTS.md), [ui/docs](./ui/docs) | This page |
+Paste into your executor. Each line loads one product; they are independent.
+
+**Zaridium UI** is the library you build your own menus with:
+
+```lua
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/ui/dist/ZaridiumUI.lua"))()
+```
+
+**Zaridium Hub** is the ready-made script hub:
+
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/latest.lua"))()
+```
+
+## Documentation
+
+| Read | What it covers |
+| --- | --- |
+| [ui/AGENTS.md](./ui/AGENTS.md) | Short rule-based guide. **Start here, especially if you are an AI agent.** |
+| [ui/docs/API.md](./ui/docs/API.md) | Every function, option and control |
+| [ui/docs/THEMING.md](./ui/docs/THEMING.md) | Colour roles, presets, modes, shape and motion |
+| [ui/docs/ICONS.md](./ui/docs/ICONS.md) | The 128 icon names and aliases |
+| [ui/docs/ARCHITECTURE.md](./ui/docs/ARCHITECTURE.md) | How the library is built |
+| [ui/examples/](./ui/examples) | `minimal.lua` and `full.lua` |
 
 <br/>
 
-## Zaridium UI
+# Zaridium UI
 
-A Material 3 interface library for Roblox executors. One `loadstring`, one window, a dozen controls, and a theme generated from a
-single seed colour.
+A Material 3 interface library for Roblox executors, written in Luau. One file, no dependencies, and a theme generated from a single
+seed colour. Use it to build your own hub, tool or settings menu.
 
 ```lua
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/ui/dist/ZaridiumUI.lua"))()
@@ -49,7 +66,9 @@ Section:AddSlider({ Text = "Speed", Flag = "speed", Min = 16, Max = 200, Default
 Library:BuildSettings(Window:AddTab({ Name = "Settings", Icon = "settings" })) -- theme + configs, ready made
 ```
 
-### Features
+The window shows after `CreateWindow`; press **Right Ctrl** to hide or show it.
+
+## Features
 
 - **Material 3 look:** pill buttons, 28 px window corners, tonal surface containers, state layers and ripples.
 - **Generated theme:** pick a seed colour or one of 13 presets and get all roles in Dark, Light or Amoled, with live transitions.
@@ -63,10 +82,8 @@ Library:BuildSettings(Window:AddTab({ Name = "Settings", Icon = "settings" })) -
 - **Configs:** every control with a `Flag` saves and loads as JSON, with autoload and share-as-text.
 - **Many options:** corner roundness, interface scale, animation speed, ripple, font style, toggle key, all also exposed in the
   built-in settings page.
-- **Written for AI agents too:** [`ui/AGENTS.md`](./ui/AGENTS.md) is a short, rule-based guide, backed by a full
-  [API reference](./ui/docs/API.md), [theming guide](./ui/docs/THEMING.md) and [architecture notes](./ui/docs/ARCHITECTURE.md).
 
-### Executor requirements
+## Executor requirements
 
 Only a Roblox client environment is required. Everything else degrades gracefully.
 
@@ -78,36 +95,31 @@ Only a Roblox client environment is required. Everything else degrades gracefull
 | `listfiles`, `delfile` | Config list and delete | Those buttons do nothing |
 | `setclipboard` | Copy config | A warning toast |
 
-### Run the examples
+## Examples
 
 - [`ui/examples/minimal.lua`](./ui/examples/minimal.lua): a window with a toggle and a button.
 - [`ui/examples/full.lua`](./ui/examples/full.lua): every control, notifications, dialogs, theming and configs.
 
 <br/>
 
-## Zaridium Hub
+# Zaridium Hub
 
-A fast, fluid script hub with a dashboard of action cards. When auto-execute is on it boots minimised.
-
-### Latest stable
-
-```lua
-loadstring(
-  game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/latest.lua")
-)()
-```
-
-### Nightly snapshot
-
-> Bleeding edge. New work lands here first, so expect rough edges.
+A fast, fluid script hub with a dashboard of action cards. It is a separate product from the UI library above and is built with
+TypeScript (roblox-ts), React and Reflex. When auto-execute is on it boots minimised.
 
 ```lua
-loadstring(
-  game:HttpGetAsync("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/snapshot.lua")
-)()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/latest.lua"))()
 ```
 
-### Navigation
+Nightly snapshot (bleeding edge, expect rough edges):
+
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MidasRX/Zaridium/main/roblox-script/public/snapshot.lua"))()
+```
+
+Press **K** to open and close it.
+
+## Navigation
 
 <table>
 <tr>
@@ -151,13 +163,12 @@ possible they are pinned to a specific commit.
 
 **Options:** theme selection, acrylic toggle, shortcuts and saved settings.
 
-### Compatibility
+## Compatibility
 
-The hub needs `loadstring` and `game:HttpGetAsync`. Executors that follow the sUNC standard should work; Synapse X is no longer
+The hub needs `loadstring` and `game:HttpGet`. Executors that follow the sUNC standard should work; Synapse X is no longer
 supported. I do not publish a per-executor version table because I cannot test every executor on every Roblox update.
 
 <br/>
-
 ## Project layout
 
 ```
@@ -213,7 +224,6 @@ npm run bundle       # compile + bundle to public/dev.lua
 | `npm run serve` | Rojo serve for Studio sync |
 | `npm run build` | build `Zaridium.rbxm` |
 | `npm run bundle` | compile and bundle to `public/dev.lua` |
-| `npm run bundle:min` | the same, minified |
 | `npm run lint` | ESLint |
 
 <br/>
