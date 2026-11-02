@@ -22,7 +22,12 @@ async function mount() {
 			<App />
 		</ReflexProvider>,
 	);
-	return container.WaitForChild(1) as ScreenGui;
+	// React names the root child after its key/type, not "1" like Roact did, so take whichever child appears first.
+	const existing = container.GetChildren()[0];
+	if (existing) {
+		return existing as ScreenGui;
+	}
+	return container.ChildAdded.Wait()[0] as ScreenGui;
 }
 
 /**
