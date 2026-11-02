@@ -1,0 +1,10 @@
+﻿{
+  "name": "zaridium-ui-tools",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@material-symbols/svg-400": "latest",
+    "@resvg/resvg-js": "latest",
+    "pngjs": "latest"
+  }
+}

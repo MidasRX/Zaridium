@@ -1,0 +1,9 @@
+﻿{
+  "name": "GoogleSansFlex",
+  "faces": [
+    { "name": "Regular", "weight": 400, "style": "normal", "assetId": "<REGULAR>" },
+    { "name": "Medium", "weight": 500, "style": "normal", "assetId": "<MEDIUM>" },
+    { "name": "SemiBold", "weight": 600, "style": "normal", "assetId": "<SEMIBOLD>" },
+    { "name": "Bold", "weight": 700, "style": "normal", "assetId": "<BOLD>" }
+  ]
+}

@@ -1,0 +1,38 @@
+name: UI library
+
+on:
+  push:
+    branches: [main]
+    paths: ["ui/**", ".github/workflows/ui.yaml"]
+  pull_request:
+    paths: ["ui/**", ".github/workflows/ui.yaml"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ui
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install luau
+        run: |
+          curl -fsSL -o luau.zip https://github.com/luau-lang/luau/releases/latest/download/luau-ubuntu.zip
+          unzip -q luau.zip luau
+          chmod +x luau
+
+      - name: Smoke test (mocked Roblox)
+        run: node tests/run.mjs ./luau
+
+      - name: Bundle is up to date
+        run: |
+          node tools/bundle.mjs --version 1.0.0
+          git diff --exit-code -- dist/ZaridiumUI.lua

@@ -1,0 +1,3 @@
+tests/.smoke.luau
+tests/.bundle.lua
+tools/node_modules/
