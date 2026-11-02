@@ -5,7 +5,7 @@
 --
 -- Author: 0866 (forked by MidasRX)
 -- License: MIT
--- Version: "1.2.0-dbg"
+-- Version: "1.2.1-dbg"
 -- GitHub: https://github.com/MidasRX/Zaridium
 --]]
 
@@ -89,10 +89,48 @@ local function loadModule(obj, this)
 	end
 end
 
----@param target ModuleScript
+---Resolves a Luau string require ("./x", "../x", "@self/x") against the bundled instance tree.
+---Executors do not implement require-by-string, so the bundle has to do it.
+---@param path string
+---@param from? LocalScript | ModuleScript
+---@return ModuleScript
+local function resolveStringRequire(path, from)
+	local current
+	local rest = path
+	if string.sub(path, 1, 6) == "@self/" then
+		current = from
+		rest = string.sub(path, 7)
+	elseif path == "@self" then
+		current = from
+		rest = ""
+	else
+		current = from and from.Parent
+	end
+
+	for segment in string.gmatch(rest, "[^/]+") do
+		if not current then
+			break
+		end
+		if segment == ".." then
+			current = current.Parent
+		elseif segment ~= "." then
+			current = current:FindFirstChild(segment)
+		end
+	end
+
+	if not current then
+		error("Failed to resolve require path '" .. path .. "' from '" .. (from and from.Name or "?") .. "'", 3)
+	end
+	return current
+end
+
+---@param target ModuleScript | string
 ---@param this? LocalScript | ModuleScript
 ---@return any
 local function requireModuleInternal(target, this)
+	if type(target) == "string" then
+		target = resolveStringRequire(target, this)
+	end
 	if modules[target] and target:IsA("ModuleScript") then
 		return loadModule(target, this)
 	else
@@ -106,7 +144,7 @@ end
 ---@return table<string, any> environment
 local function newEnv(id)
 	return setmetatable({
-		VERSION = "1.2.0-dbg",
+		VERSION = "1.2.1-dbg",
 		script = instanceFromId[id],
 		require = function (module)
 			return requireModuleInternal(module, instanceFromId[id])
