@@ -158,12 +158,15 @@ function Library:CreateWindow(config)
 			uiScale.Scale = math.clamp(base, 0.6, 1.25)
 		end
 		Util.Scale = uiScale.Scale
+		-- UIScale scales around the top-left corner, so a full-size root would overflow the screen.
+		root.Size = UDim2.fromScale(1 / uiScale.Scale, 1 / uiScale.Scale)
 	end
 	updateScale()
 	maid:Give(gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateScale))
 
 	-- Click-away layer that closes popups
 	local blocker = Instance.new("TextButton")
+	blocker.Selectable = false
 	blocker.Name = "PopupBlocker"
 	blocker.BackgroundTransparency = 1
 	blocker.Text = ""
@@ -185,7 +188,8 @@ function Library:CreateWindow(config)
 		blocker.Visible = #Core.Popups > 0
 	end
 
-	Components.InstallTooltips(root)
+	local _, tooltipConnection = Components.InstallTooltips(root)
+	maid:Give(tooltipConnection)
 
 	-- Notification stack (top right)
 	notificationHolder = Frame({
@@ -285,6 +289,7 @@ function Library:Notify(opts)
 	stroke.Thickness = 1
 	Core.Bind(stroke, "Color", "OutlineVariant")
 	stroke.Parent = card
+	List(card, 0)
 	local inner = Frame({ Size = UDim2.new(1, 0, 0, 0), AutoSize = "Y", ZIndex = 502, Parent = card })
 	Padding(inner, 14, 14, 14, 14)
 	local icon = Icons.Create(opts.Icon or style.icon, {
@@ -383,11 +388,10 @@ function Library:Notify(opts)
 		local bar = Frame({
 			Name = "Timer",
 			Size = UDim2.new(1, 0, 0, 3),
-			Position = UDim2.fromScale(0, 1),
-			AnchorPoint = Vector2.new(0, 1),
 			ZIndex = 506,
 			Parent = card,
 		})
+		bar.LayoutOrder = 1
 		progress = Frame({ Size = UDim2.fromScale(1, 1), Role = style.fg, Transparency = 0.5, ZIndex = 507, Parent = bar })
 	end
 
@@ -446,6 +450,7 @@ function Library:Dialog(opts)
 	Util.Tween(scrim, Util.Motion.Medium, { BackgroundTransparency = 0.5 }, Enum.EasingStyle.Quad)
 
 	local sink = Instance.new("TextButton")
+	sink.Selectable = false
 	sink.BackgroundTransparency = 1
 	sink.Text = ""
 	sink.AutoButtonColor = false
@@ -601,9 +606,10 @@ function Library:SetRoundedFont(enabled)
 end
 
 function Library:SetScale(scale)
-	if Library.UIScale then
+	if Library.UIScale and Library.Root then
 		Library.UIScale.Scale = math.clamp(scale, 0.5, 2)
 		Util.Scale = Library.UIScale.Scale
+		Library.Root.Size = UDim2.fromScale(1 / Util.Scale, 1 / Util.Scale)
 	end
 end
 
@@ -987,11 +993,12 @@ function Library:Unload()
 	Library.Unloading:Fire()
 	Core.ClosePopups()
 	maid:Clean()
-	for _, control in table.clone(Core.Options) do
+	for control in table.clone(Core.Controls) do
 		pcall(function()
 			control:Destroy()
 		end)
 	end
+	table.clear(Core.Controls)
 	table.clear(Core.Options)
 	table.clear(Core.Flags)
 	if Library.Window then

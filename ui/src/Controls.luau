@@ -73,7 +73,10 @@ local function newControl(kind, opts, container)
 		end
 	end
 
+	Core.Controls[self] = true
+
 	function self:Destroy()
+		Core.Controls[self] = nil
 		self._maid:Clean()
 		self.Changed:Destroy()
 		if self.Flag and Core.Options[self.Flag] == self then
@@ -107,7 +110,6 @@ local function makeRow(container, opts, minHeight)
 	local row = Frame({
 		Name = opts.Flag or opts.Text or "Row",
 		Size = UDim2.new(1, 0, 0, hasDescription and math.max(minHeight, 64) or minHeight),
-		AutoSize = hasDescription and "Y" or nil,
 		Parent = container,
 	})
 	row.LayoutOrder = opts.LayoutOrder or 0
@@ -165,6 +167,15 @@ local function makeRow(container, opts, minHeight)
 			AutoSize = "Y",
 			LayoutOrder = 1,
 		})
+		-- The row keeps a fixed height that follows the measured text. An AutomaticSize row holding a
+		-- scale-sized child makes Roblox grow the row in a feedback loop (rows ended up 500+ px tall).
+		local function fit()
+			local scale = math.max(Util.Scale, 0.01)
+			local needed = 20 + 22 + 2 + description.AbsoluteSize.Y / scale
+			row.Size = UDim2.new(1, 0, 0, math.max(minHeight, math.ceil(needed)))
+		end
+		description:GetPropertyChangedSignal("AbsoluteSize"):Connect(fit)
+		task.defer(fit)
 	end
 	if opts.Visible == false then
 		row.Visible = false
@@ -577,6 +588,7 @@ function Controls.AddSlider(container, opts)
 	end
 
 	local hit = Instance.new("TextButton")
+	hit.Selectable = false
 	hit.Name = "Hit"
 	hit.BackgroundTransparency = 1
 	hit.Text = ""
@@ -1046,6 +1058,13 @@ function Controls.AddDropdown(container, opts)
 		end,
 	})
 
+	self.Open = function()
+		openMenu()
+	end
+	self.Close = function()
+		closeMenu()
+	end
+
 	function self:Set(value, silent)
 		if multi then
 			local newValue = {}
@@ -1156,7 +1175,7 @@ function Controls.AddSegmented(container, opts)
 		Position = UDim2.fromOffset(0, hasTitle and 32 or 0),
 		Radius = "Full",
 		StrokeRole = "Outline",
-		Clip = true,
+		Canvas = true,
 		Parent = row,
 	})
 	bar:FindFirstChildOfClass("UIStroke").Thickness = 1
@@ -1745,6 +1764,7 @@ function Controls.AddColorPicker(container, opts)
 		Padding(popup, 16, 16, 16, 16)
 
 		local sv = Instance.new("ImageButton")
+		sv.Selectable = false
 		sv.Name = "SV"
 		sv.AutoButtonColor = false
 		sv.BorderSizePixel = 0
@@ -1776,6 +1796,7 @@ function Controls.AddColorPicker(container, opts)
 		})
 
 		local hueBar = Instance.new("ImageButton")
+		hueBar.Selectable = false
 		hueBar.Name = "Hue"
 		hueBar.AutoButtonColor = false
 		hueBar.BorderSizePixel = 0
@@ -1916,6 +1937,13 @@ function Controls.AddColorPicker(container, opts)
 			end
 		end,
 	})
+
+	self.Open = function()
+		openPicker()
+	end
+	self.Close = function()
+		closePicker()
+	end
 
 	function self:Set(color, silent)
 		if typeof(color) == "string" then

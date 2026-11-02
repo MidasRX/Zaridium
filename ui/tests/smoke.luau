@@ -127,6 +127,11 @@ check("unloaded", Library.Unloaded == true and Library.Window == nil)
 check("gui destroyed", #__M.CoreGui:GetChildren() == 0)
 check("flags cleared", next(Library.Flags) == nil)
 
+-- no leaked global input listeners after unload
+check("no leaked InputBegan listeners", #__M.uis.InputBegan._h == 0, #__M.uis.InputBegan._h)
+check("no leaked InputChanged listeners", #__M.uis.InputChanged._h == 0, #__M.uis.InputChanged._h)
+check("no leaked InputEnded listeners", #__M.uis.InputEnded._h == 0, #__M.uis.InputEnded._h)
+
 -- recreate after unload
 local okAgain, errAgain = pcall(function() Library:CreateWindow({ Title = "Again", Offline = true }) end)
 check("recreate window after unload", okAgain, errAgain)

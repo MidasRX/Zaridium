@@ -17,6 +17,7 @@ local Core = {
 
 	Flags = {},
 	Options = {},
+	Controls = {}, -- every live control, flagged or not, so Unload can disconnect their input listeners
 	Listening = false,
 	Keybinds = {},
 	Popups = {},

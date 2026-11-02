@@ -585,6 +585,7 @@ function Window:_makeDraggable(handle)
 	local dragging = false
 	local startPointer, startPos
 	local hit = Instance.new("TextButton")
+	hit.Selectable = false
 	hit.Name = "DragArea"
 	hit.BackgroundTransparency = 1
 	hit.Text = ""
@@ -624,6 +625,7 @@ end
 
 function Window:_makeResizable(main)
 	local grip = Instance.new("TextButton")
+	grip.Selectable = false
 	grip.Name = "ResizeGrip"
 	grip.BackgroundTransparency = 1
 	grip.Text = ""

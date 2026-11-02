@@ -145,6 +145,7 @@ function Components.Interactive(host, opts)
 	state.Parent = layer
 
 	local hit = Instance.new("TextButton")
+	hit.Selectable = false
 	hit.Name = "Hit"
 	hit.BackgroundTransparency = 1
 	hit.BorderSizePixel = 0
@@ -152,7 +153,7 @@ function Components.Interactive(host, opts)
 	hit.AutoButtonColor = false
 	hit.Size = UDim2.fromScale(1, 1)
 	hit.ZIndex = (opts.ZIndex or 1) + 8
-	hit.Selectable = opts.CanFocus ~= false
+	hit.Selectable = opts.CanFocus == true
 	hit.Parent = host
 
 	local function refresh()
@@ -274,7 +275,6 @@ function Components.Interactive(host, opts)
 	function self:SetDisabled(disabled)
 		self.Disabled = disabled and true or false
 		hit.Active = not self.Disabled
-		hit.Selectable = not self.Disabled
 		refresh()
 	end
 
@@ -369,7 +369,7 @@ function Components.InstallTooltips(overlay)
 	end
 
 	local scale = overlay:FindFirstChildOfClass("UIScale")
-	UserInputService.InputChanged:Connect(function(input)
+	local connection = UserInputService.InputChanged:Connect(function(input)
 		if tip.Visible and input.UserInputType == Enum.UserInputType.MouseMovement then
 			local s = scale and scale.Scale or 1
 			local origin = overlay.AbsolutePosition
@@ -378,7 +378,7 @@ function Components.InstallTooltips(overlay)
 		end
 	end)
 
-	return tip
+	return tip, connection
 end
 
 return Components
