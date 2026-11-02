@@ -220,9 +220,7 @@ npm run bundle       # compile + bundle to public/dev.lua
 
 ## Credits
 
-- **[richie0866](https://github.com/richie0866)** created [Orca](https://github.com/richie0866/orca) (MIT), the UI and architecture
-  that Zaridium Hub is based on. The original licence notice is preserved in [LICENSE](./LICENSE).
-- **[Material Symbols](https://github.com/google/material-design-icons)** by Google (Apache 2.0) provide the icons.
+- **richie0866** created **Orca** (MIT), the UI and architecture that Zaridium Hub is based on. His GitHub account and repository\n  have since been removed, so the link goes to the [Wayback Machine archive](https://web.archive.org/web/20260702120759/https://github.com/richie0866/orca). The original licence notice is\n  preserved in [LICENSE](./LICENSE).\n- **[Obsidian](https://github.com/deividcomsono/Obsidian)** by deividcomsono and the **[mspaint](https://docs.mspaint.cc/obsidian)**\n  team (MIT) inspired the structure of Zaridium UI: window, tabs, groupboxes, a Flag/Options model and save/theme managers. No\n  Obsidian code is copied; Zaridium UI is written from scratch with a Material 3 design.\n- **[Material Symbols](https://github.com/google/material-design-icons)** by Google (Apache 2.0) provide the icons.
 - **[Google Sans Flex](https://github.com/googlefonts/googlesans-flex)** (SIL Open Font License 1.1) provides the fonts. "Google" and
   "Google Sans" are trademarks of Google LLC; this project is not affiliated with Google. See
   [ui/assets/NOTICE.md](./ui/assets/NOTICE.md).
@@ -233,7 +231,7 @@ npm run bundle       # compile + bundle to public/dev.lua
 ## License
 
 Released under **[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)**: free to share and adapt for **non-commercial**
-use, with attribution. The original Orca code stays under its MIT licence, and the bundled icons and fonts keep their own licences.
+use, with attribution. The original Orca code stays under its MIT licence ([archived source](https://web.archive.org/web/20260702120759/https://github.com/richie0866/orca)), and the bundled icons and fonts keep their own licences.
 Full text in [LICENSE](./LICENSE).
 
 <br/>

@@ -420,8 +420,9 @@ Creative Commons may be contacted at creativecommons.org.
 Third-party notices
 ================================================================================
 
-Zaridium is derived from Orca by Richard (richie0866),
-https://github.com/richie0866/orca, which is released under the MIT License.
+Zaridium is derived from Orca by Richard (richie0866), which is released under the MIT
+License. The original repository has been removed from GitHub; an archived copy is at
+https://web.archive.org/web/20260702120759/https://github.com/richie0866/orca
 The Orca code and the portions derived from it remain available under the MIT
 License below. The CC BY-NC 4.0 terms above apply to the changes and additions
 made by MidasRX, and do not remove or restrict any rights granted by the MIT
